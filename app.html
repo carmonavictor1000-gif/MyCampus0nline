@@ -1399,13 +1399,13 @@ function closeAllEdits(){document.querySelectorAll('.gc-edit.open,.edit-row.open
 
 function saveEditTarea(id){
   const t=tareas.find(x=>x.id===id);if(!t)return;
-  const gradeType=document.getElementById('edit_grade_'+id)?.value;
+  const gradeType=document.getElementById('edit_nota_'+id)?.value;
   if(gradeType===''||gradeType===undefined) t.nota=null;
   else if(gradeType==='pass') t.nota='pass';
   else if(gradeType==='fail') t.nota='fail';
   else if(gradeType==='exemption') t.nota='exemption';
   else if(gradeType==='num'){
-    const num=parseFloat(document.getElementById('edit_grade_num_t_'+id)?.value);
+    const num=parseFloat(document.getElementById('edit_nota_num_t_'+id)?.value);
     if(!isNaN(num)&&num>=0&&num<=10) t.nota=num;
   }
   const est=document.getElementById('edit_est_'+id)?.value;if(est)t.estado=est;
@@ -1415,10 +1415,16 @@ function saveEditTarea(id){
 }
 function saveEditExamen(id){
   const e=examenes.find(x=>x.id===id);if(!e)return;
-  const nv=document.getElementById('edit_grade_'+id)?.value;
-  const _grade=parseFloat(nv);
-  if(nv===''||nv===undefined||nv===null)e.nota=null;
-  else if(!isNaN(_grade)&&_grade>=0&&grade<=10){e.nota=grade;if(e.estado!=='Completed')e.estado='Completed';}
+  const notaType=document.getElementById('edit_nota_'+id)?.value;
+  if(notaType===''||notaType===undefined) e.nota=null;
+  else if(notaType==='pass') e.nota='pass';
+  else if(notaType==='fail') e.nota='fail';
+  else if(notaType==='exemption') e.nota='exemption';
+  else if(notaType==='num'){
+    const num=parseFloat(document.getElementById('edit_nota_num_'+id)?.value);
+    if(!isNaN(num)&&num>=0&&num<=10) e.nota=num;
+  }
+  if(e.nota!==null&&e.nota!==undefined) e.estado='Completed';
   const est=document.getElementById('edit_est_'+id)?.value;if(est)e.estado=est;
   const convE=document.getElementById('edit_conv_'+id)?.value;if(convE!==undefined)e.convocatoria=convE;
   const fechaE=document.getElementById('edit_fecha_e_'+id)?.value;if(fechaE!==undefined)e.fecha=fechaE;
