@@ -1035,21 +1035,18 @@ function save(){
   setSyncStatus('saving');
   _saveTimer=setTimeout(async()=>{
     if(!currentUser){setSyncStatus('error');return;}
-    // Also save profile
-    const _profKey='mc_profile_'+currentUser.id;
-    const _prof=JSON.parse(localStorage.getItem(_profKey)||'{}');
     const payload={
       id:currentUser.id,
       user_id:currentUser.id,
-      asigs,tareas,examenes,apuntes,
-      profile:_prof,
+      tareas,examenes,asigs,apuntes,
       updated_at:new Date().toISOString()
     };
     const {error}=await sbClient
       .from('unihub_data')
       .upsert(payload,{onConflict:'id'});
     if(error){
-      console.error('Save error:',error);
+      console.error('Save error:',error.message,error.code,error.details);
+      showToast('Save error: '+error.message);
       setSyncStatus('error');
     } else {
       setSyncStatus('ok');
