@@ -1035,10 +1035,14 @@ function save(){
   setSyncStatus('saving');
   _saveTimer=setTimeout(async()=>{
     if(!currentUser){setSyncStatus('error');return;}
+    // Also save profile
+    const _profKey='mc_profile_'+currentUser.id;
+    const _prof=JSON.parse(localStorage.getItem(_profKey)||'{}');
     const payload={
       id:currentUser.id,
       user_id:currentUser.id,
       asigs,tareas,examenes,apuntes,
+      profile:_prof,
       updated_at:new Date().toISOString()
     };
     const {error}=await sbClient
@@ -1091,8 +1095,17 @@ async function loadFromSupabase(){
       if(statusMap[e.estado])e.estado=statusMap[e.estado];
       if(e.grade!==undefined&&e.nota===undefined)e.nota=e.grade;
     });
-    showToast('Loaded: '+tareas.length+' assignments, '+examenes.length+' exams, '+asigs.length+' subjects');
+    // Load profile from Supabase if available
+    if(data.profile&&Object.keys(data.profile).length){
+      const profKey='mc_profile_'+currentUser.id;
+      const existing=JSON.parse(localStorage.getItem(profKey)||'{}');
+      // Merge: Supabase wins for most fields, keep local if Supabase empty
+      const merged={...data.profile,...existing.nombre?{}:{nombre:data.profile.nombre}};
+      localStorage.setItem(profKey,JSON.stringify({...data.profile,...existing}));
+      localStorage.setItem(profKey,JSON.stringify(data.profile));
+    }
     initYearSwitcher();
+    loadProfile();
     renderAll();
     setSyncStatus('ok');
   } else {
@@ -1102,12 +1115,15 @@ async function loadFromSupabase(){
     examenes = EXAMENES_DEFAULT.map(e=>({...e}));
     apuntes  = [];
     renderAll();
+    const _profKey2='mc_profile_'+currentUser.id;
+    const _prof2=JSON.parse(localStorage.getItem(_profKey2)||'{}');
     const {error:saveErr}=await sbClient
       .from('unihub_data')
       .insert({
         id:currentUser.id,
         user_id:currentUser.id,
-        asigs,tareas,examenes,apuntes
+        asigs,tareas,examenes,apuntes,
+        profile:_prof2
       });
     if(saveErr) console.error('First save error:',saveErr);
     else{setSyncStatus('ok');showToast('Welcome to MyCampus');}
