@@ -49,9 +49,14 @@ input:focus,select:focus{border-color:#1D4ED8;box-shadow:0 0 0 3px rgba(29,78,21
     <label>Email</label><input type="email" id="su-email" placeholder="your@email.com">
     <label>Password</label><input type="password" id="su-pass" placeholder="Min. 6 characters">
     <label>University</label>
-    <select id="su-uni"><option value="windesheim">Windesheim University of Applied Sciences</option></select>
+    <select id="su-uni" onchange="updateCareers()">
+      <option value="windesheim">Windesheim University of Applied Sciences</option>
+      <option value="us">Universidad de Sevilla (US)</option>
+    </select>
     <label>Programme</label>
-    <select id="su-career"><option value="ib">International Business</option></select>
+    <select id="su-career">
+      <option value="ib">International Business</option>
+    </select>
     <button class="btn" id="su-btn" onclick="doSignUp()">Create account</button>
     <div class="err" id="su-err"></div>
   </div>
@@ -61,6 +66,23 @@ input:focus,select:focus{border-color:#1D4ED8;box-shadow:0 0 0 3px rgba(29,78,21
 const sb=supabase.createClient('https://scsbiqczkgeqclzkrhmm.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc2JpcWN6a2dlcWNsemtyaG1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTAyMTksImV4cCI6MjA5NzEyNjIxOX0.J0D43k9q6kTgkPUv-a4c32jYjSuptw8mF05PCEm78a8');
 
 sb.auth.getSession().then(function(r){if(r.data.session)window.location.href='app.html';});
+
+const CAREER_MAP = {
+  windesheim: [{value:'ib', label:'International Business'}],
+  us: [{value:'fico', label:'Finanzas y Contabilidad (FICO)'}]
+};
+
+const APP_MAP = {
+  'windesheim-ib': 'app.html',
+  'us-fico': 'fico.html'
+};
+
+function updateCareers(){
+  const uni = document.getElementById('su-uni').value;
+  const sel = document.getElementById('su-career');
+  const careers = CAREER_MAP[uni] || [];
+  sel.innerHTML = careers.map(c=>`<option value="${c.value}">${c.label}</option>`).join('');
+}
 
 function showReg(){document.getElementById('ls-signin').style.display='none';document.getElementById('ls-signup').style.display='block';}
 function showIn(){document.getElementById('ls-signup').style.display='none';document.getElementById('ls-signin').style.display='block';}
@@ -100,7 +122,13 @@ async function doSignUp(){
     localStorage.setItem('mc_pending_name',name);
     localStorage.setItem('mc_pending_uni',uni);
     localStorage.setItem('mc_pending_career',career);
-    window.location.href='app.html';
+    const uni2=document.getElementById('su-uni').value;
+    const career2=document.getElementById('su-career').value;
+    const appUrl=APP_MAP[uni2+'-'+career2]||'app.html';
+    localStorage.setItem('mc_pending_name',name);
+    localStorage.setItem('mc_pending_uni',uni2);
+    localStorage.setItem('mc_pending_career',career2);
+    window.location.href=appUrl;
   } else {
     err.style.color='#12B76A';err.textContent='Check your email to confirm your account.';
     btn.disabled=false;btn.textContent='Create account';
