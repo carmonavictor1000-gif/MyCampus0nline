@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-<title>MyCampus — FICO</title>
+<title>MyCampus</title>
 
 <style>
 :root{
@@ -582,19 +582,16 @@ textarea{resize:vertical;min-height:56px}
   <!-- Year switcher -->
   <div style="width:100%;padding:0 8px;margin-bottom:8px">
     <select id="year-switcher" onchange="switchYear(this.value)" style="width:100%;font-size:11px;font-weight:600;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 8px;cursor:pointer;font-family:var(--font);text-align:center">
-      <option value="1">Año 1 — 25/26</option>
-      <option value="2">Año 2 — 26/27</option>
-      <option value="3">Año 3 — 27/28</option>
-      <option value="4">Año 4 — 28/29</option>
+      <option value="1">Year 1 — 25/26</option>
+      <option value="2">Year 2 — 26/27</option>
+      <option value="3">Year 3 — 27/28</option>
+      <option value="4">Year 4 — 28/29</option>
     </select>
   </div>
 
   <button class="nav active" data-s="overview" onclick="go('overview',this)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
     <span class="tip">Overview</span><span class="nav-label">Overview</span></button>
-  <button class="nav" data-s="tareas" style="display:none" onclick="go('tareas',this)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-    <span class="tip">Assignments</span><span class="nav-label">Assignments</span></button>
   <button class="nav" data-s="examenes" onclick="go('examenes',this)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
     <span class="tip">Exams</span><span class="nav-label">Exams</span></button>
@@ -602,10 +599,10 @@ textarea{resize:vertical;min-height:56px}
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 000-7h-11a3.5 3.5 0 010-7H15"/><circle cx="18" cy="5" r="3"/></svg>
     <span class="tip">Study Route</span><span class="nav-label">Study Route</span></button>
   <div class="sb-div"></div>
-  <a class="nav" href="https://mijn.windesheim.nl" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span class="tip">My Windesheim</span><span class="nav-label">My Windesheim</span></a>
+  
   <a class="nav" href="https://outlook.cloud.microsoft/mail/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><span class="tip">Outlook</span><span class="nav-label">Outlook</span></a>
-  <a class="nav" href="https://windesheim.aattendance.nl/student/app/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="tip">Enrollment</span><span class="nav-label">Enrollment</span></a>
-  <a class="nav" href="https://leren.windesheim.nl" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span class="tip">Brightspace</span><span class="nav-label">Brightspace</span></a>
+  
+  
   <div class="sb-bot"><div class="avatar" id="main-avatar" onclick="toggleProfile(event)" style="cursor:pointer" title="My profile">VC</div></div>
 </aside>
 </div>
@@ -654,7 +651,7 @@ textarea{resize:vertical;min-height:56px}
           <div class="ov-act-head">
             <span class="ov-act-title">Pending activities</span>
             <div style="display:flex;gap:6px">
-              <button class="btn-view" style="font-size:10px;padding:3px 9px" onclick="go('tareas',document.querySelector('[data-s=tareas]'))">Assignments</button>
+              
               <button class="btn-view" style="font-size:10px;padding:3px 9px" onclick="go('examenes',document.querySelector('[data-s=examenes]'))">Exams</button>
             </div>
           </div>
@@ -663,21 +660,13 @@ textarea{resize:vertical;min-height:56px}
 
       </div>
 
-                <span>My Windesheim</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;color:var(--sub2);margin-left:auto"></i>
-        </a>
+      <!-- BOTTOM: quick links bar -->
+      <div class="ov-bottom">
         <a href="https://outlook.cloud.microsoft/mail/" target="_blank" class="ov-link">
           <div class="ql-icon" style="background:#DBEAFE;color:#1E40AF;width:30px;height:30px;font-size:13px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg></div>
           <span>Outlook</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;color:var(--sub2);margin-left:auto"></i>
         </a>
-        <a href="https://windesheim.aattendance.nl/student/app/" target="_blank" class="ov-link">
-          <div class="ql-icon" style="background:#D1FAE5;color:#065F46;width:30px;height:30px;font-size:13px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-          <span>Enrollment</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;color:var(--sub2);margin-left:auto"></i>
-        </a>
-        <a href="https://leren.windesheim.nl" target="_blank" class="ov-link">
-          <div class="ql-icon" style="background:#EDE9FE;color:#5B21B6;width:30px;height:30px;font-size:13px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
-          <span>Brightspace</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;color:var(--sub2);margin-left:auto"></i>
-        </a>
-      </div>
+        </div>
     </div>
 
     <!-- ENTREGAS -->
@@ -741,7 +730,7 @@ textarea{resize:vertical;min-height:56px}
     </div>
     <div class="profile-field">
       <label>Institutional email</label>
-      <input id="pf-email" type="email" placeholder="you@windesheim.nl">
+      <input id="pf-email" type="email" placeholder="you@us.es">
     </div>
     <div class="profile-field">
       <label>Student number</label>
@@ -754,10 +743,10 @@ textarea{resize:vertical;min-height:56px}
     <div class="profile-field">
       <label>Academic year</label>
       <select id="pf-anio">
-        <option value="1">Año 1</option>
-        <option value="2">Año 2</option>
-        <option value="3">Año 3</option>
-        <option value="4">Año 4</option>
+        <option value="1">Year 1</option>
+        <option value="2">Year 2</option>
+        <option value="3">Year 3</option>
+        <option value="4">Year 4</option>
       </select>
     </div>
   </div>
@@ -823,50 +812,50 @@ const ASIGS_DEFAULT=[
 const TAREAS_DEFAULT=[];
 
 const EXAMENES_DEFAULT=[
-  {id:'f1a01e',asig:'f1a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a02e',asig:'f1a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a03e',asig:'f1a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a04e',asig:'f1a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a05e',asig:'f1a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a06e',asig:'f1a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a07e',asig:'f1a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a08e',asig:'f1a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a09e',asig:'f1a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f1a10e',asig:'f1a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a01e',asig:'f2a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a02e',asig:'f2a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a03e',asig:'f2a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a04e',asig:'f2a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a05e',asig:'f2a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a06e',asig:'f2a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a07e',asig:'f2a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a08e',asig:'f2a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a09e',asig:'f2a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f2a10e',asig:'f2a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a01e',asig:'f3a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a02e',asig:'f3a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a03e',asig:'f3a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a04e',asig:'f3a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a05e',asig:'f3a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a06e',asig:'f3a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a07e',asig:'f3a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a08e',asig:'f3a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a09e',asig:'f3a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f3a10e',asig:'f3a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a01e',asig:'f4a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a02e',asig:'f4a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a03e',asig:'f4a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a04e',asig:'f4a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a05e',asig:'f4a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a06e',asig:'f4a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a07e',asig:'f4a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a08e',asig:'f4a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a09e',asig:'f4a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a10e',asig:'f4a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'f4a11e',asig:'f4a11',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'f1a01e',asig:'f1a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a02e',asig:'f1a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a03e',asig:'f1a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a04e',asig:'f1a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a05e',asig:'f1a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a06e',asig:'f1a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a07e',asig:'f1a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a08e',asig:'f1a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a09e',asig:'f1a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a10e',asig:'f1a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a01e',asig:'f2a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a02e',asig:'f2a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a03e',asig:'f2a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a04e',asig:'f2a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a05e',asig:'f2a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a06e',asig:'f2a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a07e',asig:'f2a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a08e',asig:'f2a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a09e',asig:'f2a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a10e',asig:'f2a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a01e',asig:'f3a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a02e',asig:'f3a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a03e',asig:'f3a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a04e',asig:'f3a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a05e',asig:'f3a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a06e',asig:'f3a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a07e',asig:'f3a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a08e',asig:'f3a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a09e',asig:'f3a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a10e',asig:'f3a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a01e',asig:'f4a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a02e',asig:'f4a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a03e',asig:'f4a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a04e',asig:'f4a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a05e',asig:'f4a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a06e',asig:'f4a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a07e',asig:'f4a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a08e',asig:'f4a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a09e',asig:'f4a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a10e',asig:'f4a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a11e',asig:'f4a11',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
 ];
 
-const STUDY_ROUTE=[{year:1,label:"A\u00f1o 1 \u2014 25/26",semesters:[{label:'Cuatrimestre 1',courses:[{id:'f1a01',nombre:"Introducci\u00f3n a la Econom\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f1a02',nombre:"Matem\u00e1ticas",ec:6,color:'#EC4899',status:'Planned'},{id:'f1a03',nombre:"Fundamentos de Contabilidad",ec:6,color:'#F59E0B',status:'Planned'},{id:'f1a04',nombre:"Fundamentos de Econom\u00eda de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f1a05',nombre:"Contabilidad Financiera I",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Cuatrimestre 2',courses:[{id:'f1a06',nombre:"Microeconom\u00eda",ec:6,color:'#2E90FA',status:'Planned'},{id:'f1a07',nombre:"Macroeconom\u00eda",ec:6,color:'#14B8A6',status:'Planned'},{id:'f1a08',nombre:"Historia Econ\u00f3mica",ec:6,color:'#EF4444',status:'Planned'},{id:'f1a09',nombre:"Introducci\u00f3n a las Finanzas",ec:6,color:'#F97316',status:'Planned'},{id:'f1a10',nombre:"Contabilidad de Costes",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:2,label:"A\u00f1o 2 \u2014 26/27",semesters:[{label:'Cuatrimestre 1',courses:[{id:'f2a01',nombre:"Estad\u00edstica I",ec:6,color:'#6366F1',status:'Planned'},{id:'f2a02',nombre:"Fundamentos de Direcci\u00f3n de Operaciones",ec:6,color:'#EC4899',status:'Planned'},{id:'f2a03',nombre:"Derecho Mercantil",ec:6,color:'#F59E0B',status:'Planned'},{id:'f2a04',nombre:"R\u00e9gimen Fiscal de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f2a05',nombre:"Contabilidad Financiera II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Cuatrimestre 2',courses:[{id:'f2a06',nombre:"Estad\u00edstica II",ec:6,color:'#2E90FA',status:'Planned'},{id:'f2a07',nombre:"Contabilidad para la Gesti\u00f3n",ec:6,color:'#14B8A6',status:'Planned'},{id:'f2a08',nombre:"Direcci\u00f3n y Organizaci\u00f3n",ec:6,color:'#EF4444',status:'Planned'},{id:'f2a09',nombre:"Sistemas y Mercados Financieros",ec:6,color:'#F97316',status:'Planned'},{id:'f2a10',nombre:"Marketing",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:3,label:"A\u00f1o 3 \u2014 27/28",semesters:[{label:'Cuatrimestre 1',courses:[{id:'f3a01',nombre:"Introducci\u00f3n a la Auditor\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f3a02',nombre:"Matem\u00e1ticas Financieras",ec:6,color:'#EC4899',status:'Planned'},{id:'f3a03',nombre:"Planificaci\u00f3n Financiera de la Empresa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f3a04',nombre:"Mercados Financieros Derivados",ec:6,color:'#10B981',status:'Planned'},{id:'f3a05',nombre:"An\u00e1lisis de los Estados Financieros II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Cuatrimestre 2',courses:[{id:'f3a06',nombre:"Responsabilidad Social y \u00c9tica Empresarial",ec:6,color:'#2E90FA',status:'Planned'},{id:'f3a07',nombre:"Sistemas de Informaci\u00f3n para las Finanzas y la Contabilidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f3a08',nombre:"Valoraci\u00f3n de Empresas",ec:6,color:'#EF4444',status:'Planned'},{id:'f3a09',nombre:"An\u00e1lisis de los Estados Financieros I",ec:6,color:'#F97316',status:'Planned'},{id:'f3a10',nombre:"Creaci\u00f3n de Empresas",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:4,label:"A\u00f1o 4 \u2014 28/29",semesters:[{label:'Cuatrimestre 1',courses:[{id:'f4a01',nombre:"Gesti\u00f3n Bancaria",ec:6,color:'#6366F1',status:'Planned'},{id:'f4a02',nombre:"Control de Gesti\u00f3n",ec:6,color:'#EC4899',status:'Planned'},{id:'f4a03',nombre:"T\u00e9cnicas y M\u00e9todos de Racionalizaci\u00f3n Administrativa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f4a04',nombre:"Marketing Financiero",ec:6,color:'#10B981',status:'Planned'},{id:'f4a05',nombre:"Ingl\u00e9s para las Finanzas y la Contabilidad",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Cuatrimestre 2',courses:[{id:'f4a06',nombre:"Gesti\u00f3n de RRHH y Habilidades Directivas",ec:6,color:'#2E90FA',status:'Planned'},{id:'f4a07',nombre:"PYMES y Gesti\u00f3n de la Calidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f4a08',nombre:"Derecho del Mercado Financiero",ec:6,color:'#EF4444',status:'Planned'},{id:'f4a09',nombre:"Elementos Actuariales y Probabil\u00edsticos en la Valoraci\u00f3n del Riesgo",ec:6,color:'#F97316',status:'Planned'},{id:'f4a10',nombre:"Fiscalidad de los Productos Financieros",ec:6,color:'#06B6D4',status:'Planned'},{id:'f4a11',nombre:"TFG",ec:6,color:'#84CC16',status:'Planned'}]}]}];
+const STUDY_ROUTE=[{year:1,label:"Year 1 \u2014 25/26",semesters:[{label:'Semester 1',courses:[{id:'f1a01',nombre:"Introducci\u00f3n a la Econom\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f1a02',nombre:"Matem\u00e1ticas",ec:6,color:'#EC4899',status:'Planned'},{id:'f1a03',nombre:"Fundamentos de Contabilidad",ec:6,color:'#F59E0B',status:'Planned'},{id:'f1a04',nombre:"Fundamentos de Econom\u00eda de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f1a05',nombre:"Contabilidad Financiera I",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f1a06',nombre:"Microeconom\u00eda",ec:6,color:'#2E90FA',status:'Planned'},{id:'f1a07',nombre:"Macroeconom\u00eda",ec:6,color:'#14B8A6',status:'Planned'},{id:'f1a08',nombre:"Historia Econ\u00f3mica",ec:6,color:'#EF4444',status:'Planned'},{id:'f1a09',nombre:"Introducci\u00f3n a las Finanzas",ec:6,color:'#F97316',status:'Planned'},{id:'f1a10',nombre:"Contabilidad de Costes",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:2,label:"Year 2 \u2014 26/27",semesters:[{label:'Semester 1',courses:[{id:'f2a01',nombre:"Estad\u00edstica I",ec:6,color:'#6366F1',status:'Planned'},{id:'f2a02',nombre:"Fundamentos de Direcci\u00f3n de Operaciones",ec:6,color:'#EC4899',status:'Planned'},{id:'f2a03',nombre:"Derecho Mercantil",ec:6,color:'#F59E0B',status:'Planned'},{id:'f2a04',nombre:"R\u00e9gimen Fiscal de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f2a05',nombre:"Contabilidad Financiera II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f2a06',nombre:"Estad\u00edstica II",ec:6,color:'#2E90FA',status:'Planned'},{id:'f2a07',nombre:"Contabilidad para la Gesti\u00f3n",ec:6,color:'#14B8A6',status:'Planned'},{id:'f2a08',nombre:"Direcci\u00f3n y Organizaci\u00f3n",ec:6,color:'#EF4444',status:'Planned'},{id:'f2a09',nombre:"Sistemas y Mercados Financieros",ec:6,color:'#F97316',status:'Planned'},{id:'f2a10',nombre:"Marketing",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:3,label:"Year 3 \u2014 27/28",semesters:[{label:'Semester 1',courses:[{id:'f3a01',nombre:"Introducci\u00f3n a la Auditor\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f3a02',nombre:"Matem\u00e1ticas Financieras",ec:6,color:'#EC4899',status:'Planned'},{id:'f3a03',nombre:"Planificaci\u00f3n Financiera de la Empresa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f3a04',nombre:"Mercados Financieros Derivados",ec:6,color:'#10B981',status:'Planned'},{id:'f3a05',nombre:"An\u00e1lisis de los Estados Financieros II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f3a06',nombre:"Responsabilidad Social y \u00c9tica Empresarial",ec:6,color:'#2E90FA',status:'Planned'},{id:'f3a07',nombre:"Sistemas de Informaci\u00f3n para las Finanzas y la Contabilidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f3a08',nombre:"Valoraci\u00f3n de Empresas",ec:6,color:'#EF4444',status:'Planned'},{id:'f3a09',nombre:"An\u00e1lisis de los Estados Financieros I",ec:6,color:'#F97316',status:'Planned'},{id:'f3a10',nombre:"Creaci\u00f3n de Empresas",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:4,label:"Year 4 \u2014 28/29",semesters:[{label:'Semester 1',courses:[{id:'f4a01',nombre:"Gesti\u00f3n Bancaria",ec:6,color:'#6366F1',status:'Planned'},{id:'f4a02',nombre:"Control de Gesti\u00f3n",ec:6,color:'#EC4899',status:'Planned'},{id:'f4a03',nombre:"T\u00e9cnicas y M\u00e9todos de Racionalizaci\u00f3n Administrativa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f4a04',nombre:"Marketing Financiero",ec:6,color:'#10B981',status:'Planned'},{id:'f4a05',nombre:"Ingl\u00e9s para las Finanzas y la Contabilidad",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f4a06',nombre:"Gesti\u00f3n de RRHH y Habilidades Directivas",ec:6,color:'#2E90FA',status:'Planned'},{id:'f4a07',nombre:"PYMES y Gesti\u00f3n de la Calidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f4a08',nombre:"Derecho del Mercado Financiero",ec:6,color:'#EF4444',status:'Planned'},{id:'f4a09',nombre:"Elementos Actuariales y Probabil\u00edsticos en la Valoraci\u00f3n del Riesgo",ec:6,color:'#F97316',status:'Planned'},{id:'f4a10',nombre:"Fiscalidad de los Productos Financieros",ec:6,color:'#06B6D4',status:'Planned'},{id:'f4a11',nombre:"TFG",ec:6,color:'#84CC16',status:'Planned'}]}]}];
 
 // Supabase config
 const SB_URL='https://scsbiqczkgeqclzkrhmm.supabase.co';
@@ -1059,7 +1048,7 @@ async function loadFromSupabase(){
       }
     });
     // Migrate field names and status values
-    const statusMap={'Hecho':'Done','En curso':'In progress','Pendiente':'Pending','Realizado':'Completed','Inscrito':'Enrolled','Sin inscribir':'Not enrolled'};
+    const statusMap={'Hecho':'Done','En curso':'In progress','Pendiente':'Pendiente','Realizado':'Completado','Completado':'Completado'};
     tareas.forEach(t=>{
       if(statusMap[t.estado])t.estado=statusMap[t.estado];
       if(t.grade!==undefined&&t.nota===undefined)t.nota=t.grade;
@@ -1168,7 +1157,7 @@ function asigStatus(asigId){
 }
 
 // Nav
-const CRUMBS={overview:'Overview',tareas:'Assignments',examenes:'Exams',studyroute:'Study Route'};
+const CRUMBS={overview:'Overview',examenes:'Exámenes',studyroute:'Ruta académica'};
 const NAVICONS={
   overview:'<svg width="14" height="14" viewBox="0 0 24 24" fill="#667085" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
   tareas:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#667085" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>',
@@ -1348,7 +1337,7 @@ function addExamenDrawer(){
   if(defaults.length>1&&chooser){const s=defaults.find(e=>e.id===chooser.value);if(s)nombre=s.nombre;}
   const conv=document.getElementById('dex-conv')?.value||'';
   const fecha=document.getElementById('dex-fecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:conv});
+  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:conv});
   save();closeDrawer();renderAll();showToast('Exam added');
 }
 
@@ -1361,7 +1350,7 @@ function addTareaDrawer(){
   const conv=document.getElementById('dtar-conv')?.value||'';
   const fecha=document.getElementById('dtar-fecha')?.value||'';
   tareas.push({id:uid(),asig:asigId,nombre,fecha,tipo:'Assignment',estado:'Pending',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Assignment added');
+  save();closeDrawer();renderAll();showToast('Examen añadido');
 }
 
 // Kebab
@@ -1387,7 +1376,7 @@ function saveEditTarea(id){
   const est=document.getElementById('edit_est_'+id)?.value;if(est)t.estado=est;
   const conv=document.getElementById('edit_conv_t_'+id)?.value;if(conv!==undefined)t.convocatoria=conv;
   const fechaT=document.getElementById('edit_fecha_t_'+id)?.value;if(fechaT!==undefined)t.fecha=fechaT;
-  save();closeEdit(id);renderAll();showToast('Assignment updated');
+  save();closeEdit(id);renderAll();showToast('Actualizado');
 }
 function saveEditExamen(id){
   const e=examenes.find(x=>x.id===id);if(!e)return;
@@ -1412,7 +1401,7 @@ function addTarea(){
   const n=document.getElementById('tn')?.value.trim();if(!n)return;
   tareas.push({id:uid(),nombre:n,asig:selA.tar||'',convocatoria:document.getElementById('tconv')?.value.trim()||'',estado:document.getElementById('te')?.value||'Pending',grade:null});
   save();document.getElementById('tn').value='';document.getElementById('tf').value='';
-  closeDrawer();renderAll();showToast('Assignment added');
+  closeDrawer();renderAll();showToast('Examen añadido');
 }
 function delTarea(id){tareas=tareas.filter(x=>x.id!==id);save();renderAll();showToast('Deleted');}
 function renderTareas(){
@@ -1476,7 +1465,7 @@ function renderTareas(){
 // EXÁMENES
 function addExamen(){
   if(!selA.ex){showToast('Select a subject');return;}
-  examenes.push({id:uid(),asig:selA.ex,nombre:document.getElementById('exn')?.value.trim()||'Examen',fecha:document.getElementById('exf')?.value||'',hora:document.getElementById('exh')?.value||'',aula:document.getElementById('exa')?.value.trim()||'',estado:document.getElementById('exe')?.value||'Not enrolled',grade:null});
+  examenes.push({id:uid(),asig:selA.ex,nombre:document.getElementById('exn')?.value.trim()||'Examen',fecha:document.getElementById('exf')?.value||'',hora:document.getElementById('exh')?.value||'',aula:document.getElementById('exa')?.value.trim()||'',estado:'Pendiente',grade:null});
   save();document.getElementById('exn').value='';
   closeDrawer();renderAll();showToast('Exam added');
 }
@@ -1496,7 +1485,7 @@ function renderExamenes(){
     const hasNota=_en!==null;
     const isPass=_en==='pass';const isFail=_en==='fail';const isExempt=_en==='exemption'||_en==='Exemption'||e.nota==='exemption';const rawGrade=e.nota!==undefined?e.nota:e.nota;const isNum=hasNota&&typeof rawGrade==='number';
     const pass=isPass||isExempt||(isNum&&parseFloat(rawGrade)>=5.5);
-    const bdg=(e.estado==='Enrolled'||e.estado==='Inscrito')?'b-ins':(e.estado==='Completed'||e.estado==='Realizado')?'b-real':'b-nins';
+    const bdg=(e.estado==='Completado'||e.estado==='Realizado')?'b-real':'b-nins';
     const gradeColor=hasNota?(pass?'#12B76A':'#F04438'):'var(--sub2)';
     const notaLabel=isPass?'Pass':isFail?'Fail':isExempt?'Exempt':(isNum?parseFloat(_en||rawGrade).toFixed(1):'');
     const notaChip=hasNota?`<span style="font-size:24px;font-weight:800;color:${pass?'#12B76A':'#F04438'};letter-spacing:-.04em;font-variant-numeric:tabular-nums">${notaLabel}</span>`:'';
@@ -1522,7 +1511,7 @@ function renderExamenes(){
           </div>
         </div>
         <div class="fg c2" style="margin-bottom:6px">
-          <div><div class="qf-lbl" style="margin-bottom:3px">Status</div><select id="edit_est_${e.id}"><option${e.estado==='Not enrolled'?' selected':''}>Not enrolled</option><option${e.estado==='Enrolled'?' selected':''}>Enrolled</option><option${e.estado==='Completed'?' selected':''}>Completed</option></select></div>
+          <div><div class="qf-lbl" style="margin-bottom:3px">Status</div><select id="edit_est_${e.id}"><option${e.estado==='Pendiente'?' selected':''}>Pendiente</option><option${e.estado==='Completado'?' selected':''}>Completado</option></select></div>
           <div><div class="qf-lbl" style="margin-bottom:3px">Sitting</div>
             <select id="edit_conv_${e.id}">
               <option value="">—</option>
@@ -1916,7 +1905,7 @@ function addExamenFromDrawer(){
   }
   const conv=document.getElementById('exconv')?.value||'';
   const fecha=document.getElementById('exfecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre:examName,fecha,hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:conv});
+  examenes.push({id:uid(),asig:asigId,nombre:examName,fecha,hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:conv});
   save();closeDrawer();renderAll();showToast('Exam added');
 }
 
@@ -1934,7 +1923,7 @@ function addTareaFromDrawer(){
   const conv=document.getElementById('tconv')?.value||'';
   const fecha=document.getElementById('tfecha')?.value||'';
   tareas.push({id:uid(),asig:asigId,nombre:name,fecha,tipo:'Assignment',estado:'Pending',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Assignment added');
+  save();closeDrawer();renderAll();showToast('Examen añadido');
 }
 
 function toggleSRCourse(id){
@@ -1962,10 +1951,10 @@ function renderOvPath(){
 
   // Bar chart: one bar per year, showing credits earned vs total
   const years=[
-    {label:'Año 1',total:60,earned:0,color:'#1D4ED8'},
-    {label:'Año 2',total:60,earned:0,color:'#3B82F6'},
-    {label:'Año 3',total:60,earned:0,color:'#60A5FA'},
-    {label:'Año 4',total:60,earned:0,color:'#93C5FD'},
+    {label:'Year 1',total:60,earned:0,color:'#1D4ED8'},
+    {label:'Year 2',total:60,earned:0,color:'#3B82F6'},
+    {label:'Year 3',total:60,earned:0,color:'#60A5FA'},
+    {label:'Year 4',total:60,earned:0,color:'#93C5FD'},
   ];
 
   // Count earned per year
@@ -2000,7 +1989,7 @@ function renderOvPath(){
 
 function renderAll(){
   renderOvStats();renderOvActividades();renderOvPath();
-  renderTareas();renderExamenes();
+  renderExamenes();
   renderStudyRoute();
 }
 
@@ -2023,8 +2012,13 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelector('.topbar')?.classList.add('hidden');
   renderAll();
   sbClient.auth.getSession().then(({data:{session}})=>{
-    if(session){onLogin(session);}
-    else{window.location.href='index.html';}
+    const guard=document.getElementById('auth-guard');
+    if(session){
+      if(guard)guard.style.display='none';
+      onLogin(session);
+    } else {
+      window.location.href='index.html';
+    }
   });
 });
 
@@ -2050,10 +2044,6 @@ updateActivity();
   <button class="mob-btn active" data-s="overview" onclick="go('overview',this)">
     <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
     <span>Home</span>
-  </button>
-  <button class="mob-btn" data-s="tareas" onclick="go('tareas',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-    <span>Assignments</span>
   </button>
   <button class="mob-btn" data-s="examenes" onclick="go('examenes',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
