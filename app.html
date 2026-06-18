@@ -2044,8 +2044,13 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelector('.topbar')?.classList.add('hidden');
   renderAll();
   sbClient.auth.getSession().then(({data:{session}})=>{
-    if(session){onLogin(session);}
-    else{window.location.href='index.html';}
+    const guard=document.getElementById('auth-guard');
+    if(session){
+      if(guard)guard.style.display='none';
+      onLogin(session);
+    } else {
+      window.location.href='index.html';
+    }
   });
 });
 
