@@ -99,7 +99,15 @@ async function doSignIn(){
     var msg=r.error.message;
     if(msg.includes('Invalid login'))msg='Incorrect email or password.';
     err.textContent=msg;btn.disabled=false;btn.textContent='Sign in';
-  } else {window.location.href='app.html';}
+  } else {
+    const userId=r.data.session.user.id;
+    const profKey='mc_profile_'+userId;
+    const prof=JSON.parse(localStorage.getItem(profKey)||'{}');
+    const career=prof.career||'ib';
+    const uni=prof.uni||'windesheim';
+    const appUrl=APP_MAP[uni+'-'+career]||'app.html';
+    window.location.href=appUrl;
+  }
 }
 
 async function doSignUp(){
