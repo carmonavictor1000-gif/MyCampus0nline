@@ -52,6 +52,7 @@ input:focus,select:focus{border-color:#1D4ED8;box-shadow:0 0 0 3px rgba(29,78,21
     <select id="su-uni" onchange="updateCareers()">
       <option value="windesheim">Windesheim University of Applied Sciences</option>
       <option value="us">Universidad de Sevilla (US)</option>
+      <option value="lasalle">La Salle URL Barcelona</option>
     </select>
     <label>Programme</label>
     <select id="su-career">
@@ -69,12 +70,14 @@ sb.auth.getSession().then(function(r){if(r.data.session)window.location.href='ap
 
 const CAREER_MAP = {
   windesheim: [{value:'ib', label:'International Business'}],
-  us: [{value:'fico', label:'Finanzas y Contabilidad (FICO)'}]
+  us: [{value:'fico', label:'Finanzas y Contabilidad (FICO)'}],
+  lasalle: [{value:'mbt', label:'Management of Business and Technology'}]
 };
 
 const APP_MAP = {
   'windesheim-ib': 'app.html',
-  'us-fico': 'fico.html'
+  'us-fico': 'fico.html',
+  'lasalle-mbt': 'lasalle.html'
 };
 
 function updateCareers(){
