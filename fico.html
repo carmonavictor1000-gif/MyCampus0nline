@@ -231,15 +231,6 @@ textarea{resize:vertical;min-height:56px}
 .kebab{width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub2);transition:all .15s;flex-shrink:0}
 .kebab:hover{background:var(--bg);color:var(--text);border-color:var(--border2)}
 .kebab i{font-size:13px;pointer-events:none}
-.kmenu{position:absolute;right:0;top:34px;background:var(--white);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);z-index:200;min-width:140px;overflow:hidden;display:none}
-.kmenu.open{display:block}
-.kmenu-item{display:flex;align-items:center;gap:9px;padding:9px 13px;font-size:12px;font-weight:500;cursor:pointer;color:var(--text);border:none;background:none;width:100%;text-align:left;font-family:var(--font);transition:background .1s}
-.kmenu-item:hover{background:var(--bg)}
-.kmenu-item.danger{color:var(--red)}
-.kmenu-item.danger:hover{background:var(--red-bg)}
-.kmenu-item i{font-size:12px;width:14px;text-align:center;color:var(--sub2)}
-.kmenu-item.danger i{color:var(--red)}
-.kmenu-div{height:1px;background:var(--border);margin:3px 0}
 .edit-row{background:var(--bg);border-radius:8px;padding:10px 12px;margin:6px 0;display:none}
 .edit-row.open{display:block}
 .edit-row .fg{gap:6px;margin-bottom:6px}
@@ -603,7 +594,7 @@ textarea{resize:vertical;min-height:56px}
   <a class="nav" href="https://outlook.cloud.microsoft/mail/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><span class="tip">Outlook</span><span class="nav-label">Outlook</span></a>
   
   
-  <div class="sb-bot"><div class="avatar" id="main-avatar" onclick="toggleProfile(event)" style="cursor:pointer" title="My profile">VC</div></div>
+  <div class="sb-bot"><div class="avatar" id="main-avatar" onclick="toggleProfile(event)" style="cursor:pointer" title="My profile">·</div></div>
 </aside>
 </div>
 
@@ -717,7 +708,7 @@ textarea{resize:vertical;min-height:56px}
 <!-- PROFILE PANEL -->
 <div class="profile-panel" id="profile-panel">
   <div class="profile-head">
-    <div class="profile-avatar" id="pp-avatar">VC</div>
+    <div class="profile-avatar" id="pp-avatar">·</div>
     <div style="min-width:0">
       <div class="profile-name-head" id="pp-name-head">Victor</div>
       <div class="profile-email" id="pp-email-head"></div>
@@ -812,47 +803,47 @@ const ASIGS_DEFAULT=[
 const TAREAS_DEFAULT=[];
 
 const EXAMENES_DEFAULT=[
-  {id:'f1a01e',asig:'f1a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a02e',asig:'f1a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a03e',asig:'f1a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a04e',asig:'f1a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a05e',asig:'f1a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a06e',asig:'f1a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a07e',asig:'f1a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a08e',asig:'f1a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a09e',asig:'f1a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f1a10e',asig:'f1a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a01e',asig:'f2a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a02e',asig:'f2a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a03e',asig:'f2a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a04e',asig:'f2a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a05e',asig:'f2a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a06e',asig:'f2a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a07e',asig:'f2a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a08e',asig:'f2a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a09e',asig:'f2a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f2a10e',asig:'f2a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a01e',asig:'f3a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a02e',asig:'f3a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a03e',asig:'f3a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a04e',asig:'f3a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a05e',asig:'f3a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a06e',asig:'f3a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a07e',asig:'f3a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a08e',asig:'f3a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a09e',asig:'f3a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f3a10e',asig:'f3a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a01e',asig:'f4a01',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a02e',asig:'f4a02',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a03e',asig:'f4a03',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a04e',asig:'f4a04',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a05e',asig:'f4a05',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a06e',asig:'f4a06',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a07e',asig:'f4a07',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a08e',asig:'f4a08',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a09e',asig:'f4a09',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a10e',asig:'f4a10',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
-  {id:'f4a11e',asig:'f4a11',nombre:'Examen',fecha:'',hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a01e',asig:'f1a01',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a02e',asig:'f1a02',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a03e',asig:'f1a03',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a04e',asig:'f1a04',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a05e',asig:'f1a05',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a06e',asig:'f1a06',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a07e',asig:'f1a07',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a08e',asig:'f1a08',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a09e',asig:'f1a09',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f1a10e',asig:'f1a10',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a01e',asig:'f2a01',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a02e',asig:'f2a02',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a03e',asig:'f2a03',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a04e',asig:'f2a04',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a05e',asig:'f2a05',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a06e',asig:'f2a06',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a07e',asig:'f2a07',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a08e',asig:'f2a08',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a09e',asig:'f2a09',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f2a10e',asig:'f2a10',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a01e',asig:'f3a01',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a02e',asig:'f3a02',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a03e',asig:'f3a03',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a04e',asig:'f3a04',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a05e',asig:'f3a05',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a06e',asig:'f3a06',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a07e',asig:'f3a07',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a08e',asig:'f3a08',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a09e',asig:'f3a09',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f3a10e',asig:'f3a10',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a01e',asig:'f4a01',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a02e',asig:'f4a02',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a03e',asig:'f4a03',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a04e',asig:'f4a04',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a05e',asig:'f4a05',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a06e',asig:'f4a06',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a07e',asig:'f4a07',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a08e',asig:'f4a08',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a09e',asig:'f4a09',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a10e',asig:'f4a10',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
+  {id:'f4a11e',asig:'f4a11',nombre:'Examen',fecha:'',hora:'',estado:'Pendiente',nota:null,convocatoria:''},
 ];
 
 const STUDY_ROUTE=[{year:1,label:"Year 1 \u2014 25/26",semesters:[{label:'Semester 1',courses:[{id:'f1a01',nombre:"Introducci\u00f3n a la Econom\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f1a02',nombre:"Matem\u00e1ticas",ec:6,color:'#EC4899',status:'Planned'},{id:'f1a03',nombre:"Fundamentos de Contabilidad",ec:6,color:'#F59E0B',status:'Planned'},{id:'f1a04',nombre:"Fundamentos de Econom\u00eda de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f1a05',nombre:"Contabilidad Financiera I",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f1a06',nombre:"Microeconom\u00eda",ec:6,color:'#2E90FA',status:'Planned'},{id:'f1a07',nombre:"Macroeconom\u00eda",ec:6,color:'#14B8A6',status:'Planned'},{id:'f1a08',nombre:"Historia Econ\u00f3mica",ec:6,color:'#EF4444',status:'Planned'},{id:'f1a09',nombre:"Introducci\u00f3n a las Finanzas",ec:6,color:'#F97316',status:'Planned'},{id:'f1a10',nombre:"Contabilidad de Costes",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:2,label:"Year 2 \u2014 26/27",semesters:[{label:'Semester 1',courses:[{id:'f2a01',nombre:"Estad\u00edstica I",ec:6,color:'#6366F1',status:'Planned'},{id:'f2a02',nombre:"Fundamentos de Direcci\u00f3n de Operaciones",ec:6,color:'#EC4899',status:'Planned'},{id:'f2a03',nombre:"Derecho Mercantil",ec:6,color:'#F59E0B',status:'Planned'},{id:'f2a04',nombre:"R\u00e9gimen Fiscal de la Empresa",ec:6,color:'#10B981',status:'Planned'},{id:'f2a05',nombre:"Contabilidad Financiera II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f2a06',nombre:"Estad\u00edstica II",ec:6,color:'#2E90FA',status:'Planned'},{id:'f2a07',nombre:"Contabilidad para la Gesti\u00f3n",ec:6,color:'#14B8A6',status:'Planned'},{id:'f2a08',nombre:"Direcci\u00f3n y Organizaci\u00f3n",ec:6,color:'#EF4444',status:'Planned'},{id:'f2a09',nombre:"Sistemas y Mercados Financieros",ec:6,color:'#F97316',status:'Planned'},{id:'f2a10',nombre:"Marketing",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:3,label:"Year 3 \u2014 27/28",semesters:[{label:'Semester 1',courses:[{id:'f3a01',nombre:"Introducci\u00f3n a la Auditor\u00eda",ec:6,color:'#6366F1',status:'Planned'},{id:'f3a02',nombre:"Matem\u00e1ticas Financieras",ec:6,color:'#EC4899',status:'Planned'},{id:'f3a03',nombre:"Planificaci\u00f3n Financiera de la Empresa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f3a04',nombre:"Mercados Financieros Derivados",ec:6,color:'#10B981',status:'Planned'},{id:'f3a05',nombre:"An\u00e1lisis de los Estados Financieros II",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f3a06',nombre:"Responsabilidad Social y \u00c9tica Empresarial",ec:6,color:'#2E90FA',status:'Planned'},{id:'f3a07',nombre:"Sistemas de Informaci\u00f3n para las Finanzas y la Contabilidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f3a08',nombre:"Valoraci\u00f3n de Empresas",ec:6,color:'#EF4444',status:'Planned'},{id:'f3a09',nombre:"An\u00e1lisis de los Estados Financieros I",ec:6,color:'#F97316',status:'Planned'},{id:'f3a10',nombre:"Creaci\u00f3n de Empresas",ec:6,color:'#06B6D4',status:'Planned'}]}]},{year:4,label:"Year 4 \u2014 28/29",semesters:[{label:'Semester 1',courses:[{id:'f4a01',nombre:"Gesti\u00f3n Bancaria",ec:6,color:'#6366F1',status:'Planned'},{id:'f4a02',nombre:"Control de Gesti\u00f3n",ec:6,color:'#EC4899',status:'Planned'},{id:'f4a03',nombre:"T\u00e9cnicas y M\u00e9todos de Racionalizaci\u00f3n Administrativa",ec:6,color:'#F59E0B',status:'Planned'},{id:'f4a04',nombre:"Marketing Financiero",ec:6,color:'#10B981',status:'Planned'},{id:'f4a05',nombre:"Ingl\u00e9s para las Finanzas y la Contabilidad",ec:6,color:'#8B5CF6',status:'Planned'}]},{label:'Semester 2',courses:[{id:'f4a06',nombre:"Gesti\u00f3n de RRHH y Habilidades Directivas",ec:6,color:'#2E90FA',status:'Planned'},{id:'f4a07',nombre:"PYMES y Gesti\u00f3n de la Calidad",ec:6,color:'#14B8A6',status:'Planned'},{id:'f4a08',nombre:"Derecho del Mercado Financiero",ec:6,color:'#EF4444',status:'Planned'},{id:'f4a09',nombre:"Elementos Actuariales y Probabil\u00edsticos en la Valoraci\u00f3n del Riesgo",ec:6,color:'#F97316',status:'Planned'},{id:'f4a10',nombre:"Fiscalidad de los Productos Financieros",ec:6,color:'#06B6D4',status:'Planned'},{id:'f4a11',nombre:"TFG",ec:6,color:'#84CC16',status:'Planned'}]}]}];
@@ -864,12 +855,6 @@ const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 // Init Supabase client
 const sbClient = supabase.createClient(SB_URL, SB_KEY);
 let currentUser = null;
-let SB_HEADERS = {};
-
-function getHeaders(token){
-  return {'apikey':SB_KEY,'Authorization':'Bearer '+token,'Content-Type':'application/json','Prefer':'return=minimal'};
-}
-
 // ── Auth ──────────────────────────────────────────────────────────
 const SAVED_EMAIL_KEY='mc_saved_email';
 const SAVED_NAME_KEY='mc_saved_name';
@@ -894,9 +879,41 @@ document.addEventListener('keydown',e=>{
 
 // keydown handled by global keydown listener
 
+// Pulls the name chosen during sign-up into this user's profile.
+// Priority: localStorage mc_pending_name (same-browser, just signed up) >
+// auth user_metadata (durable, set at signup, survives email confirmation
+// delays and works even after a different device's localStorage is empty).
+// Pending keys are cleared after use so they never leak into another
+// account signing in later on the same device.
+function applyPendingOnboarding(){
+  try{
+    const profKey='mc_profile_'+currentUser.id;
+    const existing=JSON.parse(localStorage.getItem(profKey)||'{}');
+    if(!existing.nombre){
+      const meta=currentUser.user_metadata||{};
+      const pendingName=localStorage.getItem('mc_pending_name')||meta.full_name||'';
+      if(pendingName){
+        existing.nombre=pendingName;
+        localStorage.setItem(profKey,JSON.stringify(existing));
+      }
+    }
+    localStorage.removeItem('mc_pending_name');
+    localStorage.removeItem('mc_pending_uni');
+    localStorage.removeItem('mc_pending_career');
+    // Backfill: accounts created before uni/career were saved to
+    // user_metadata have no record of which university they belong to.
+    // This file IS the US/FICO dashboard, so write that back to
+    // user_metadata once so future logins (any device) resolve correctly.
+    const meta2=currentUser.user_metadata||{};
+    if(!meta2.uni||!meta2.career){
+      sbClient.auth.updateUser({data:{uni:'us',career:'fico'}}).catch(e=>console.error('updateUser failed:',e));
+    }
+  }catch(e){}
+}
+
 function onLogin(session){
   currentUser=session.user;
-  SB_HEADERS=getHeaders(session.access_token);
+  applyPendingOnboarding();
   // Save email for next login
   localStorage.setItem(SAVED_EMAIL_KEY, currentUser.email||'');
   // Save name if available from profile
@@ -904,9 +921,8 @@ function onLogin(session){
   if(prof.nombre) localStorage.setItem(SAVED_NAME_KEY, prof.nombre);
   // Set avatar initials from email
   const email = currentUser.email||'';
-  const prof2 = JSON.parse(localStorage.getItem('mc_profile_'+currentUser.id)||'{}');
-  const initials = prof2.nombre
-    ? prof2.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
+  const initials = prof.nombre
+    ? prof.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
     : email.slice(0,2).toUpperCase();
   ['main-avatar','mob-avatar'].forEach(id=>{
     try{const el=document.getElementById(id);if(el)el.textContent=initials;}catch(e){}
@@ -927,63 +943,18 @@ sbClient.auth.onAuthStateChange((event,session)=>{
   }
 });
 
-// ── Biometric (WebAuthn / passkey) ────────────────────────────────
-const BIOMETRIC_KEY='mc_biometric_email';
-
-function saveBiometricEmail(email){
-  try{localStorage.setItem(BIOMETRIC_KEY,email);}catch(e){}
+// Escapes user-entered text before it's injected via innerHTML, so a task
+// or exam name like <img src=x onerror=...> renders as plain text instead
+// of executing (stored XSS otherwise, since these names persist to Supabase).
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function getSavedEmail(){
-  try{return localStorage.getItem(BIOMETRIC_KEY)||'';}catch(e){return '';}
-}
-
-// Check if biometric is available and email is saved
-
-async function doBiometric(){
-  const email=getSavedEmail();
-  if(!email){showToast('Inicia sesión primero');return;}
-  const btn=document.getElementById('biometric-btn');
-  btn.disabled=true;
-  try{
-    // Use platform authenticator (Face ID / Touch ID) to verify identity
-    const challenge=new Uint8Array(32);
-    crypto.getRandomValues(challenge);
-    const credential=await navigator.credentials.get({
-      publicKey:{
-        challenge,
-        timeout:60000,
-        userVerification:'required',
-        rpId:window.location.hostname,
-      }
-    });
-    if(credential){
-      // Biometric verified — try to restore session
-      const {data:{session}}=await sbClient.auth.getSession();
-      if(session){
-        onLogin(session);
-      } else {
-        // Session expired — ask for password once
-        const lerr=document.getElementById('login-err');if(lerr)lerr.textContent='Session expired, enter your password.';
-        btn.disabled=false;
-      }
-    }
-  }catch(e){
-    // User cancelled or not enrolled — fall back to password
-    btn.disabled=false;
-    if(e.name!=='NotAllowedError') console.warn('Biometric error:',e);
-  }
-}
-
-// Check on load - deferred
-
-
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 
 // Local cache for instant UI
 let asigs=ASIGS_DEFAULT.map(a=>({...a}));
 let tareas=TAREAS_DEFAULT.map(t=>({...t}));
 let examenes=EXAMENES_DEFAULT.map(e=>({...e}));
-let apuntes=[];
 // Sync status indicator
 function setSyncStatus(status){
   const el=document.getElementById('sync-status');
@@ -1003,7 +974,8 @@ function save(){
     const payload={
       id:currentUser.id,
       user_id:currentUser.id,
-      tareas,examenes,asigs,apuntes,
+      tareas,examenes,asigs,
+      profile:JSON.parse(localStorage.getItem('mc_profile_'+currentUser.id)||'{}'),
       updated_at:new Date().toISOString()
     };
     const {error}=await sbClient
@@ -1040,7 +1012,6 @@ async function loadFromSupabase(){
     if(data.asigs    &&data.asigs.length)    asigs=data.asigs;
     if(data.tareas   &&data.tareas.length)   tareas=data.tareas;
     if(data.examenes &&data.examenes.length) examenes=data.examenes;
-    if(data.apuntes  &&data.apuntes.length)  apuntes=data.apuntes;
     // Patch year onto asigs if missing (added after initial release)
     asigs.forEach(a=>{
       if(!a.year){
@@ -1061,10 +1032,13 @@ async function loadFromSupabase(){
     if(data.profile&&Object.keys(data.profile).length){
       const profKey='mc_profile_'+currentUser.id;
       const existing=JSON.parse(localStorage.getItem(profKey)||'{}');
-      // Merge: Supabase wins for most fields, keep local if Supabase empty
-      const merged={...data.profile,...existing.nombre?{}:{nombre:data.profile.nombre}};
-      localStorage.setItem(profKey,JSON.stringify({...data.profile,...existing}));
-      localStorage.setItem(profKey,JSON.stringify(data.profile));
+      // Merge: Supabase wins per field, but a field only in localStorage
+      // (not yet synced) is kept instead of being wiped by an empty value.
+      const merged={...existing,...data.profile};
+      Object.keys(data.profile).forEach(k=>{
+        if((data.profile[k]===''||data.profile[k]==null)&&existing[k]) merged[k]=existing[k];
+      });
+      localStorage.setItem(profKey,JSON.stringify(merged));
     }
     initYearSwitcher();
     loadProfile();
@@ -1075,7 +1049,6 @@ async function loadFromSupabase(){
     asigs    = ASIGS_DEFAULT.map(a=>({...a}));
     tareas   = TAREAS_DEFAULT.map(t=>({...t}));
     examenes = EXAMENES_DEFAULT.map(e=>({...e}));
-    apuntes  = [];
     renderAll();
     const _profKey2='mc_profile_'+currentUser.id;
     const _prof2=JSON.parse(localStorage.getItem(_profKey2)||'{}');
@@ -1084,7 +1057,7 @@ async function loadFromSupabase(){
       .insert({
         id:currentUser.id,
         user_id:currentUser.id,
-        asigs,tareas,examenes,apuntes,
+        asigs,tareas,examenes,
         profile:_prof2
       });
     if(saveErr) console.error('First save error:',saveErr);
@@ -1337,7 +1310,7 @@ function addExamenDrawer(){
   if(defaults.length>1&&chooser){const s=defaults.find(e=>e.id===chooser.value);if(s)nombre=s.nombre;}
   const conv=document.getElementById('dex-conv')?.value||'';
   const fecha=document.getElementById('dex-fecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:conv});
+  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',estado:'Pendiente',nota:null,convocatoria:conv});
   save();closeDrawer();renderAll();showToast('Exam added');
 }
 
@@ -1355,8 +1328,6 @@ function addTareaDrawer(){
 
 // Kebab
 // Kebab
-function toggleKebab(id,e){e.stopPropagation();document.querySelectorAll('.kmenu').forEach(m=>{if(m.id!==id)m.classList.remove('open');});document.getElementById(id)?.classList.toggle('open');}
-document.addEventListener('click',()=>document.querySelectorAll('.kmenu').forEach(m=>m.classList.remove('open')));
 function openEditTareaG(id){closeAllEdits();document.getElementById('edit_'+id)?.classList.add('open');document.querySelector('#km_'+id)?.classList.remove('open');document.getElementById('gc_'+id)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function openEditExamenG(id){closeAllEdits();document.getElementById('edit_'+id)?.classList.add('open');document.querySelector('#km_'+id)?.classList.remove('open');document.getElementById('gc_'+id)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function closeEdit(id){document.getElementById('edit_'+id)?.classList.remove('open');}
@@ -1397,12 +1368,6 @@ function saveEditExamen(id){
 }
 
 // TAREAS
-function addTarea(){
-  const n=document.getElementById('tn')?.value.trim();if(!n)return;
-  tareas.push({id:uid(),nombre:n,asig:selA.tar||'',convocatoria:document.getElementById('tconv')?.value.trim()||'',estado:document.getElementById('te')?.value||'Pending',grade:null});
-  save();document.getElementById('tn').value='';document.getElementById('tf').value='';
-  closeDrawer();renderAll();showToast('Examen añadido');
-}
 function delTarea(id){tareas=tareas.filter(x=>x.id!==id);save();renderAll();showToast('Deleted');}
 function renderTareas(){
   const el=document.getElementById('list-tar');if(!el)return;
@@ -1426,7 +1391,7 @@ function renderTareas(){
     const notaChip=hasNota?`<span style="font-size:24px;font-weight:800;color:${pass?'#12B76A':'#F04438'};letter-spacing:-.04em;font-variant-numeric:tabular-nums">${notaLabel}</span>`:'';
     return`<div class="gcard" id="gc_${t.id}" style="box-shadow:0 4px 16px ${col}33;border-top:3px solid ${col}" onclick="selectCard('tarea','${t.id}',this)">
       <div class="gc-asig" style="color:${col}">${gN(t.asig)}</div>
-      <div class="gc-name">${t.nombre}${urgent?'<span style="color:#F04438;font-size:11px;margin-left:5px">⚡</span>':''}</div>
+      <div class="gc-name">${esc(t.nombre)}${urgent?'<span style="color:#F04438;font-size:11px;margin-left:5px">⚡</span>':''}</div>
       <div class="gc-meta">${t.convocatoria?'Conv. '+t.convocatoria:'No sitting'}</div>
       <div class="gc-bottom"><span class="badge ${bdg}">${t.estado}</span>${notaChip||`<span style="font-size:24px;font-weight:800;color:var(--sub2)">—</span>`}</div>
       <div class="gc-edit" id="edit_${t.id}">
@@ -1463,12 +1428,6 @@ function renderTareas(){
 }
 
 // EXÁMENES
-function addExamen(){
-  if(!selA.ex){showToast('Select a subject');return;}
-  examenes.push({id:uid(),asig:selA.ex,nombre:document.getElementById('exn')?.value.trim()||'Examen',fecha:document.getElementById('exf')?.value||'',hora:document.getElementById('exh')?.value||'',aula:document.getElementById('exa')?.value.trim()||'',estado:'Pendiente',grade:null});
-  save();document.getElementById('exn').value='';
-  closeDrawer();renderAll();showToast('Exam added');
-}
 function delExamen(id){examenes=examenes.filter(x=>x.id!==id);save();renderAll();showToast('Deleted');}
 function renderExamenes(){
   const el=document.getElementById('list-ex');if(!el)return;
@@ -1491,7 +1450,7 @@ function renderExamenes(){
     const notaChip=hasNota?`<span style="font-size:24px;font-weight:800;color:${pass?'#12B76A':'#F04438'};letter-spacing:-.04em;font-variant-numeric:tabular-nums">${notaLabel}</span>`:'';
     return`<div class="gcard" id="gc_${e.id}" style="box-shadow:0 4px 16px ${col}33;border-top:3px solid ${col}" onclick="selectCard('examen','${e.id}',this)">
       <div class="gc-asig" style="color:${col}">${gN(e.asig)}</div>
-      <div class="gc-name">${e.nombre}</div>
+      <div class="gc-name">${esc(e.nombre)}</div>
       <div class="gc-meta">${e.convocatoria?'Sitting '+e.convocatoria:'No sitting'}</div>
       <div class="gc-bottom"><span class="badge ${bdg}">${e.estado}</span>${notaChip||`<span style="font-size:24px;font-weight:800;color:var(--sub2)">—</span>`}</div>
       <div class="gc-edit" id="edit_${e.id}">
@@ -1617,7 +1576,7 @@ function renderOvActividades(){
     return`<div style="flex:1;display:flex;align-items:center;gap:12px;padding:0 16px;border-left:3px solid ${a.col};${isLast?'':`border-bottom:1px solid var(--border);`}">
       <div style="width:8px;height:8px;border-radius:50%;background:${a.col};flex-shrink:0"></div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.label}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(a.label)}</div>
         <div style="font-size:11px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.asig}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
@@ -1660,7 +1619,7 @@ function renderStudyRoute(){
           const gv=e.nota!==undefined?e.nota:e.nota;const pass=hasN&&(gv==='pass'||gv==='exemption'||(parseFloat(gv)>=5.5));
           const gradeEl=hasN?`<span style="font-size:11px;font-weight:700;color:${pass?'#12B76A':'#F04438'}">${typeof gv==='number'?gv.toFixed(1):(gv==='pass'?'Pass':gv==='exemption'?'Exempt':gv==='fail'?'Fail':parseFloat(gv).toFixed(1))}</span>`:`<span style="font-size:10px;color:var(--sub2)">${e.estado}</span>`;
           return`<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-            <span style="font-size:11px;color:var(--text);font-weight:500">${e.nombre}</span>
+            <span style="font-size:11px;color:var(--text);font-weight:500">${esc(e.nombre)}</span>
             ${gradeEl}
           </div>`;
         }).join('');
@@ -1670,7 +1629,7 @@ function renderStudyRoute(){
           const tv=t.nota!==undefined?t.nota:t.nota;const pass=hasN&&(tv==='pass'||tv==='exemption'||(parseFloat(tv)>=5.5));
           const gradeEl=hasN?`<span style="font-size:11px;font-weight:700;color:${pass?'#12B76A':'#F04438'}">${typeof tv==='number'?tv.toFixed(1):(tv==='pass'?'Pass':tv==='exemption'?'Exempt':tv==='fail'?'Fail':parseFloat(tv).toFixed(1))}</span>`:`<span style="font-size:10px;color:var(--sub2)">${t.estado}</span>`;
           return`<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-            <span style="font-size:11px;color:var(--text);font-weight:500">${t.nombre}</span>
+            <span style="font-size:11px;color:var(--text);font-weight:500">${esc(t.nombre)}</span>
             ${gradeEl}
           </div>`;
         }).join('');
@@ -1724,9 +1683,8 @@ function loadProfile(){
 
 function updateAvatarDisplay(p){
   const mobAv=document.getElementById('mob-avatar');
-  const initials2=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'VC';
-  if(mobAv)mobAv.textContent=initials2;
-  const initials=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'VC';
+  const initials=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'MC';
+  if(mobAv)mobAv.textContent=initials;
   const av=document.getElementById('main-avatar');
   const ppAv=document.getElementById('pp-avatar');
   if(av) av.textContent=initials;
@@ -1752,6 +1710,7 @@ localStorage.setItem(PROFILE_KEY,JSON.stringify(p));
   updateAvatarDisplay(p);
   closeProfile();
   showToast('Profile saved');
+  save(); // push profile to Supabase too — was previously local-only
 }
 
 function toggleProfile(e){
@@ -1808,18 +1767,6 @@ function onGradeTypeChange(selectEl, numWrapId, numInputId){
   if(wrap) wrap.style.display = selectEl.value==='num' ? 'block' : 'none';
 }
 
-async function debugSupabase(){
-  const {data,error} = await sbClient.from('unihub_data').select('*').eq('id',currentUser.id).single();
-  if(error) showToast('Error: '+error.message+' code:'+error.code);
-  else if(data){
-    const t=data.tareas?data.tareas.length:0;
-    const e=data.examenes?data.examenes.length:0;
-    showToast('Found: '+t+' assignments, '+e+' exams');
-    console.log('Supabase data:', JSON.stringify(data).slice(0,200));
-  } else {
-    showToast('No data row found');
-  }
-}
 
 function switchYear(yr){
   yr=parseInt(yr);
@@ -1846,85 +1793,10 @@ function initYearSwitcher(){
 }
 
 
-let _drawerAsigId = {ex:null, tar:null};
 
-function selectDrawerAsig(type, asigId){
-  _drawerAsigId[type] = asigId;
-  const asig = gA(asigId);
-  const step1 = document.getElementById('drawer-'+type+'-step1');
-  const step2 = document.getElementById('drawer-'+type+'-step2');
-  if(step1) step1.style.display='none';
-  if(step2) step2.style.display='block';
 
-  // Set subject name
-  const nameEl = document.getElementById('drawer-'+type+'-asig-name');
-  if(nameEl && asig){
-    nameEl.innerHTML=`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${asig.color};margin-right:8px"></span>${asig.nombre}`;
-  }
 
-  // Check if multiple exams/assignments for this subject
-  if(type==='ex'){
-    const exams = EXAMENES_DEFAULT.filter(e=>e.asig===asigId);
-    const wrap = document.getElementById('drawer-ex-name-wrap');
-    const chooser = document.getElementById('exn-chooser');
-    if(exams.length>1 && wrap && chooser){
-      chooser.innerHTML = exams.map(e=>`<option value="${e.id}">${e.nombre}</option>`).join('');
-      wrap.style.display='block';
-    } else if(wrap){
-      wrap.style.display='none';
-    }
-  } else {
-    const assignments = TAREAS_DEFAULT.filter(t=>t.asig===asigId);
-    const wrap = document.getElementById('drawer-tar-name-wrap');
-    const chooser = document.getElementById('tn-chooser');
-    if(assignments.length>1 && wrap && chooser){
-      chooser.innerHTML = assignments.map(t=>`<option value="${t.id}">${t.nombre}</option>`).join('');
-      wrap.style.display='block';
-    } else if(wrap){
-      wrap.style.display='none';
-    }
-  }
-}
 
-function backDrawerStep(type){
-  document.getElementById('drawer-'+type+'-step1').style.display='block';
-  document.getElementById('drawer-'+type+'-step2').style.display='none';
-  _drawerAsigId[type]=null;
-}
-
-function addExamenFromDrawer(){
-  const asigId=_drawerAsigId['ex'];
-  if(!asigId){showToast('Select a subject');return;}
-  const exams=EXAMENES_DEFAULT.filter(e=>e.asig===asigId);
-  const chooser=document.getElementById('exn-chooser');
-  let examName='Written exam';
-  if(exams.length===1) examName=exams[0].nombre;
-  else if(chooser){
-    const sel=exams.find(e=>e.id===chooser.value);
-    if(sel)examName=sel.nombre;
-  }
-  const conv=document.getElementById('exconv')?.value||'';
-  const fecha=document.getElementById('exfecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre:examName,fecha,hora:'',aula:'',estado:'Pendiente',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Exam added');
-}
-
-function addTareaFromDrawer(){
-  const asigId=_drawerAsigId['tar'];
-  if(!asigId){showToast('Select a subject');return;}
-  const assignments=TAREAS_DEFAULT.filter(t=>t.asig===asigId);
-  const chooser=document.getElementById('tn-chooser');
-  let name='Assignment';
-  if(assignments.length===1) name=assignments[0].nombre;
-  else if(chooser){
-    const sel=assignments.find(t=>t.id===chooser.value);
-    if(sel)name=sel.nombre;
-  }
-  const conv=document.getElementById('tconv')?.value||'';
-  const fecha=document.getElementById('tfecha')?.value||'';
-  tareas.push({id:uid(),asig:asigId,nombre:name,fecha,tipo:'Assignment',estado:'Pending',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Examen añadido');
-}
 
 function toggleSRCourse(id){
   const el=document.getElementById('srd_'+id);
@@ -2054,7 +1926,7 @@ updateActivity();
     <span>Route</span>
   </button>
   <button class="mob-btn" onclick="toggleProfile(event)">
-    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700" id="mob-avatar">VC</div>
+    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700" id="mob-avatar">·</div>
     <span>Profile</span>
   </button>
 </nav>

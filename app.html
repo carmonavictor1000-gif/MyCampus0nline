@@ -231,15 +231,6 @@ textarea{resize:vertical;min-height:56px}
 .kebab{width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub2);transition:all .15s;flex-shrink:0}
 .kebab:hover{background:var(--bg);color:var(--text);border-color:var(--border2)}
 .kebab i{font-size:13px;pointer-events:none}
-.kmenu{position:absolute;right:0;top:34px;background:var(--white);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);z-index:200;min-width:140px;overflow:hidden;display:none}
-.kmenu.open{display:block}
-.kmenu-item{display:flex;align-items:center;gap:9px;padding:9px 13px;font-size:12px;font-weight:500;cursor:pointer;color:var(--text);border:none;background:none;width:100%;text-align:left;font-family:var(--font);transition:background .1s}
-.kmenu-item:hover{background:var(--bg)}
-.kmenu-item.danger{color:var(--red)}
-.kmenu-item.danger:hover{background:var(--red-bg)}
-.kmenu-item i{font-size:12px;width:14px;text-align:center;color:var(--sub2)}
-.kmenu-item.danger i{color:var(--red)}
-.kmenu-div{height:1px;background:var(--border);margin:3px 0}
 .edit-row{background:var(--bg);border-radius:8px;padding:10px 12px;margin:6px 0;display:none}
 .edit-row.open{display:block}
 .edit-row .fg{gap:6px;margin-bottom:6px}
@@ -899,12 +890,6 @@ const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 // Init Supabase client
 const sbClient = supabase.createClient(SB_URL, SB_KEY);
 let currentUser = null;
-let SB_HEADERS = {};
-
-function getHeaders(token){
-  return {'apikey':SB_KEY,'Authorization':'Bearer '+token,'Content-Type':'application/json','Prefer':'return=minimal'};
-}
-
 // ── Auth ──────────────────────────────────────────────────────────
 const SAVED_EMAIL_KEY='mc_saved_email';
 const SAVED_NAME_KEY='mc_saved_name';
@@ -929,9 +914,41 @@ document.addEventListener('keydown',e=>{
 
 // keydown handled by global keydown listener
 
+// Pulls the name chosen during sign-up into this user's profile.
+// Priority: localStorage mc_pending_name (same-browser, just signed up) >
+// auth user_metadata (durable, set at signup, survives email confirmation
+// delays and works even after a different device's localStorage is empty).
+// Pending keys are cleared after use so they never leak into another
+// account signing in later on the same device.
+function applyPendingOnboarding(){
+  try{
+    const profKey='mc_profile_'+currentUser.id;
+    const existing=JSON.parse(localStorage.getItem(profKey)||'{}');
+    if(!existing.nombre){
+      const meta=currentUser.user_metadata||{};
+      const pendingName=localStorage.getItem('mc_pending_name')||meta.full_name||'';
+      if(pendingName){
+        existing.nombre=pendingName;
+        localStorage.setItem(profKey,JSON.stringify(existing));
+      }
+    }
+    localStorage.removeItem('mc_pending_name');
+    localStorage.removeItem('mc_pending_uni');
+    localStorage.removeItem('mc_pending_career');
+    // Backfill: accounts created before uni/career were saved to
+    // user_metadata have no record of which university they belong to.
+    // This file IS the Windesheim/IB dashboard, so write that back to
+    // user_metadata once so future logins (any device) resolve correctly.
+    const meta2=currentUser.user_metadata||{};
+    if(!meta2.uni||!meta2.career){
+      sbClient.auth.updateUser({data:{uni:'windesheim',career:'ib'}}).catch(()=>{});
+    }
+  }catch(e){}
+}
+
 function onLogin(session){
   currentUser=session.user;
-  SB_HEADERS=getHeaders(session.access_token);
+  applyPendingOnboarding();
   // Save email for next login
   localStorage.setItem(SAVED_EMAIL_KEY, currentUser.email||'');
   // Save name if available from profile
@@ -939,9 +956,8 @@ function onLogin(session){
   if(prof.nombre) localStorage.setItem(SAVED_NAME_KEY, prof.nombre);
   // Set avatar initials from email
   const email = currentUser.email||'';
-  const prof2 = JSON.parse(localStorage.getItem('mc_profile_'+currentUser.id)||'{}');
-  const initials = prof2.nombre
-    ? prof2.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
+  const initials = prof.nombre
+    ? prof.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
     : email.slice(0,2).toUpperCase();
   ['main-avatar','mob-avatar'].forEach(id=>{
     try{const el=document.getElementById(id);if(el)el.textContent=initials;}catch(e){}
@@ -962,56 +978,12 @@ sbClient.auth.onAuthStateChange((event,session)=>{
   }
 });
 
-// ── Biometric (WebAuthn / passkey) ────────────────────────────────
-const BIOMETRIC_KEY='mc_biometric_email';
-
-function saveBiometricEmail(email){
-  try{localStorage.setItem(BIOMETRIC_KEY,email);}catch(e){}
+// Escapes user-entered text before it's injected via innerHTML, so a task
+// or exam name like <img src=x onerror=...> renders as plain text instead
+// of executing (stored XSS otherwise, since these names persist to Supabase).
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function getSavedEmail(){
-  try{return localStorage.getItem(BIOMETRIC_KEY)||'';}catch(e){return '';}
-}
-
-// Check if biometric is available and email is saved
-
-async function doBiometric(){
-  const email=getSavedEmail();
-  if(!email){showToast('Inicia sesión primero');return;}
-  const btn=document.getElementById('biometric-btn');
-  btn.disabled=true;
-  try{
-    // Use platform authenticator (Face ID / Touch ID) to verify identity
-    const challenge=new Uint8Array(32);
-    crypto.getRandomValues(challenge);
-    const credential=await navigator.credentials.get({
-      publicKey:{
-        challenge,
-        timeout:60000,
-        userVerification:'required',
-        rpId:window.location.hostname,
-      }
-    });
-    if(credential){
-      // Biometric verified — try to restore session
-      const {data:{session}}=await sbClient.auth.getSession();
-      if(session){
-        onLogin(session);
-      } else {
-        // Session expired — ask for password once
-        const lerr=document.getElementById('login-err');if(lerr)lerr.textContent='Session expired, enter your password.';
-        btn.disabled=false;
-      }
-    }
-  }catch(e){
-    // User cancelled or not enrolled — fall back to password
-    btn.disabled=false;
-    if(e.name!=='NotAllowedError') console.warn('Biometric error:',e);
-  }
-}
-
-// Check on load - deferred
-
-
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 
 // Local cache for instant UI
@@ -1039,6 +1011,7 @@ function save(){
       id:currentUser.id,
       user_id:currentUser.id,
       tareas,examenes,asigs,apuntes,
+      profile:JSON.parse(localStorage.getItem('mc_profile_'+currentUser.id)||'{}'),
       updated_at:new Date().toISOString()
     };
     const {error}=await sbClient
@@ -1096,10 +1069,13 @@ async function loadFromSupabase(){
     if(data.profile&&Object.keys(data.profile).length){
       const profKey='mc_profile_'+currentUser.id;
       const existing=JSON.parse(localStorage.getItem(profKey)||'{}');
-      // Merge: Supabase wins for most fields, keep local if Supabase empty
-      const merged={...data.profile,...existing.nombre?{}:{nombre:data.profile.nombre}};
-      localStorage.setItem(profKey,JSON.stringify({...data.profile,...existing}));
-      localStorage.setItem(profKey,JSON.stringify(data.profile));
+      // Merge: Supabase wins per field, but a field only in localStorage
+      // (not yet synced) is kept instead of being wiped by an empty value.
+      const merged={...existing,...data.profile};
+      Object.keys(data.profile).forEach(k=>{
+        if((data.profile[k]===''||data.profile[k]==null)&&existing[k]) merged[k]=existing[k];
+      });
+      localStorage.setItem(profKey,JSON.stringify(merged));
     }
     initYearSwitcher();
     loadProfile();
@@ -1390,8 +1366,6 @@ function addTareaDrawer(){
 
 // Kebab
 // Kebab
-function toggleKebab(id,e){e.stopPropagation();document.querySelectorAll('.kmenu').forEach(m=>{if(m.id!==id)m.classList.remove('open');});document.getElementById(id)?.classList.toggle('open');}
-document.addEventListener('click',()=>document.querySelectorAll('.kmenu').forEach(m=>m.classList.remove('open')));
 function openEditTareaG(id){closeAllEdits();document.getElementById('edit_'+id)?.classList.add('open');document.querySelector('#km_'+id)?.classList.remove('open');document.getElementById('gc_'+id)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function openEditExamenG(id){closeAllEdits();document.getElementById('edit_'+id)?.classList.add('open');document.querySelector('#km_'+id)?.classList.remove('open');document.getElementById('gc_'+id)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function closeEdit(id){document.getElementById('edit_'+id)?.classList.remove('open');}
@@ -1432,12 +1406,6 @@ function saveEditExamen(id){
 }
 
 // TAREAS
-function addTarea(){
-  const n=document.getElementById('tn')?.value.trim();if(!n)return;
-  tareas.push({id:uid(),nombre:n,asig:selA.tar||'',convocatoria:document.getElementById('tconv')?.value.trim()||'',estado:document.getElementById('te')?.value||'Pending',grade:null});
-  save();document.getElementById('tn').value='';document.getElementById('tf').value='';
-  closeDrawer();renderAll();showToast('Assignment added');
-}
 function delTarea(id){tareas=tareas.filter(x=>x.id!==id);save();renderAll();showToast('Deleted');}
 function renderTareas(){
   const el=document.getElementById('list-tar');if(!el)return;
@@ -1461,7 +1429,7 @@ function renderTareas(){
     const notaChip=hasNota?`<span style="font-size:24px;font-weight:800;color:${pass?'#12B76A':'#F04438'};letter-spacing:-.04em;font-variant-numeric:tabular-nums">${notaLabel}</span>`:'';
     return`<div class="gcard" id="gc_${t.id}" style="box-shadow:0 4px 16px ${col}33;border-top:3px solid ${col}" onclick="selectCard('tarea','${t.id}',this)">
       <div class="gc-asig" style="color:${col}">${gN(t.asig)}</div>
-      <div class="gc-name">${t.nombre}${urgent?'<span style="color:#F04438;font-size:11px;margin-left:5px">⚡</span>':''}</div>
+      <div class="gc-name">${esc(t.nombre)}${urgent?'<span style="color:#F04438;font-size:11px;margin-left:5px">⚡</span>':''}</div>
       <div class="gc-meta">${t.convocatoria?'Conv. '+t.convocatoria:'No sitting'}</div>
       <div class="gc-bottom"><span class="badge ${bdg}">${t.estado}</span>${notaChip||`<span style="font-size:24px;font-weight:800;color:var(--sub2)">—</span>`}</div>
       <div class="gc-edit" id="edit_${t.id}">
@@ -1498,12 +1466,6 @@ function renderTareas(){
 }
 
 // EXÁMENES
-function addExamen(){
-  if(!selA.ex){showToast('Select a subject');return;}
-  examenes.push({id:uid(),asig:selA.ex,nombre:document.getElementById('exn')?.value.trim()||'Examen',fecha:document.getElementById('exf')?.value||'',hora:document.getElementById('exh')?.value||'',aula:document.getElementById('exa')?.value.trim()||'',estado:document.getElementById('exe')?.value||'Not enrolled',grade:null});
-  save();document.getElementById('exn').value='';
-  closeDrawer();renderAll();showToast('Exam added');
-}
 function delExamen(id){examenes=examenes.filter(x=>x.id!==id);save();renderAll();showToast('Deleted');}
 function renderExamenes(){
   const el=document.getElementById('list-ex');if(!el)return;
@@ -1526,7 +1488,7 @@ function renderExamenes(){
     const notaChip=hasNota?`<span style="font-size:24px;font-weight:800;color:${pass?'#12B76A':'#F04438'};letter-spacing:-.04em;font-variant-numeric:tabular-nums">${notaLabel}</span>`:'';
     return`<div class="gcard" id="gc_${e.id}" style="box-shadow:0 4px 16px ${col}33;border-top:3px solid ${col}" onclick="selectCard('examen','${e.id}',this)">
       <div class="gc-asig" style="color:${col}">${gN(e.asig)}</div>
-      <div class="gc-name">${e.nombre}</div>
+      <div class="gc-name">${esc(e.nombre)}</div>
       <div class="gc-meta">${e.convocatoria?'Sitting '+e.convocatoria:'No sitting'}</div>
       <div class="gc-bottom"><span class="badge ${bdg}">${e.estado}</span>${notaChip||`<span style="font-size:24px;font-weight:800;color:var(--sub2)">—</span>`}</div>
       <div class="gc-edit" id="edit_${e.id}">
@@ -1652,7 +1614,7 @@ function renderOvActividades(){
     return`<div style="flex:1;display:flex;align-items:center;gap:12px;padding:0 16px;border-left:3px solid ${a.col};${isLast?'':`border-bottom:1px solid var(--border);`}">
       <div style="width:8px;height:8px;border-radius:50%;background:${a.col};flex-shrink:0"></div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.label}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(a.label)}</div>
         <div style="font-size:11px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.asig}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
@@ -1695,7 +1657,7 @@ function renderStudyRoute(){
           const gv=e.nota!==undefined?e.nota:e.nota;const pass=hasN&&(gv==='pass'||gv==='exemption'||(parseFloat(gv)>=5.5));
           const gradeEl=hasN?`<span style="font-size:11px;font-weight:700;color:${pass?'#12B76A':'#F04438'}">${typeof gv==='number'?gv.toFixed(1):(gv==='pass'?'Pass':gv==='exemption'?'Exempt':gv==='fail'?'Fail':parseFloat(gv).toFixed(1))}</span>`:`<span style="font-size:10px;color:var(--sub2)">${e.estado}</span>`;
           return`<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-            <span style="font-size:11px;color:var(--text);font-weight:500">${e.nombre}</span>
+            <span style="font-size:11px;color:var(--text);font-weight:500">${esc(e.nombre)}</span>
             ${gradeEl}
           </div>`;
         }).join('');
@@ -1705,7 +1667,7 @@ function renderStudyRoute(){
           const tv=t.nota!==undefined?t.nota:t.nota;const pass=hasN&&(tv==='pass'||tv==='exemption'||(parseFloat(tv)>=5.5));
           const gradeEl=hasN?`<span style="font-size:11px;font-weight:700;color:${pass?'#12B76A':'#F04438'}">${typeof tv==='number'?tv.toFixed(1):(tv==='pass'?'Pass':tv==='exemption'?'Exempt':tv==='fail'?'Fail':parseFloat(tv).toFixed(1))}</span>`:`<span style="font-size:10px;color:var(--sub2)">${t.estado}</span>`;
           return`<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-            <span style="font-size:11px;color:var(--text);font-weight:500">${t.nombre}</span>
+            <span style="font-size:11px;color:var(--text);font-weight:500">${esc(t.nombre)}</span>
             ${gradeEl}
           </div>`;
         }).join('');
@@ -1759,9 +1721,8 @@ function loadProfile(){
 
 function updateAvatarDisplay(p){
   const mobAv=document.getElementById('mob-avatar');
-  const initials2=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'VC';
-  if(mobAv)mobAv.textContent=initials2;
-  const initials=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'VC';
+  const initials=p.nombre?p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'MC';
+  if(mobAv)mobAv.textContent=initials;
   const av=document.getElementById('main-avatar');
   const ppAv=document.getElementById('pp-avatar');
   if(av) av.textContent=initials;
@@ -1787,6 +1748,7 @@ localStorage.setItem(PROFILE_KEY,JSON.stringify(p));
   updateAvatarDisplay(p);
   closeProfile();
   showToast('Profile saved');
+  save(); // push profile to Supabase too — was previously local-only
 }
 
 function toggleProfile(e){
@@ -1843,18 +1805,6 @@ function onGradeTypeChange(selectEl, numWrapId, numInputId){
   if(wrap) wrap.style.display = selectEl.value==='num' ? 'block' : 'none';
 }
 
-async function debugSupabase(){
-  const {data,error} = await sbClient.from('unihub_data').select('*').eq('id',currentUser.id).single();
-  if(error) showToast('Error: '+error.message+' code:'+error.code);
-  else if(data){
-    const t=data.tareas?data.tareas.length:0;
-    const e=data.examenes?data.examenes.length:0;
-    showToast('Found: '+t+' assignments, '+e+' exams');
-    console.log('Supabase data:', JSON.stringify(data).slice(0,200));
-  } else {
-    showToast('No data row found');
-  }
-}
 
 function switchYear(yr){
   yr=parseInt(yr);
@@ -1881,85 +1831,10 @@ function initYearSwitcher(){
 }
 
 
-let _drawerAsigId = {ex:null, tar:null};
 
-function selectDrawerAsig(type, asigId){
-  _drawerAsigId[type] = asigId;
-  const asig = gA(asigId);
-  const step1 = document.getElementById('drawer-'+type+'-step1');
-  const step2 = document.getElementById('drawer-'+type+'-step2');
-  if(step1) step1.style.display='none';
-  if(step2) step2.style.display='block';
 
-  // Set subject name
-  const nameEl = document.getElementById('drawer-'+type+'-asig-name');
-  if(nameEl && asig){
-    nameEl.innerHTML=`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${asig.color};margin-right:8px"></span>${asig.nombre}`;
-  }
 
-  // Check if multiple exams/assignments for this subject
-  if(type==='ex'){
-    const exams = EXAMENES_DEFAULT.filter(e=>e.asig===asigId);
-    const wrap = document.getElementById('drawer-ex-name-wrap');
-    const chooser = document.getElementById('exn-chooser');
-    if(exams.length>1 && wrap && chooser){
-      chooser.innerHTML = exams.map(e=>`<option value="${e.id}">${e.nombre}</option>`).join('');
-      wrap.style.display='block';
-    } else if(wrap){
-      wrap.style.display='none';
-    }
-  } else {
-    const assignments = TAREAS_DEFAULT.filter(t=>t.asig===asigId);
-    const wrap = document.getElementById('drawer-tar-name-wrap');
-    const chooser = document.getElementById('tn-chooser');
-    if(assignments.length>1 && wrap && chooser){
-      chooser.innerHTML = assignments.map(t=>`<option value="${t.id}">${t.nombre}</option>`).join('');
-      wrap.style.display='block';
-    } else if(wrap){
-      wrap.style.display='none';
-    }
-  }
-}
 
-function backDrawerStep(type){
-  document.getElementById('drawer-'+type+'-step1').style.display='block';
-  document.getElementById('drawer-'+type+'-step2').style.display='none';
-  _drawerAsigId[type]=null;
-}
-
-function addExamenFromDrawer(){
-  const asigId=_drawerAsigId['ex'];
-  if(!asigId){showToast('Select a subject');return;}
-  const exams=EXAMENES_DEFAULT.filter(e=>e.asig===asigId);
-  const chooser=document.getElementById('exn-chooser');
-  let examName='Written exam';
-  if(exams.length===1) examName=exams[0].nombre;
-  else if(chooser){
-    const sel=exams.find(e=>e.id===chooser.value);
-    if(sel)examName=sel.nombre;
-  }
-  const conv=document.getElementById('exconv')?.value||'';
-  const fecha=document.getElementById('exfecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre:examName,fecha,hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Exam added');
-}
-
-function addTareaFromDrawer(){
-  const asigId=_drawerAsigId['tar'];
-  if(!asigId){showToast('Select a subject');return;}
-  const assignments=TAREAS_DEFAULT.filter(t=>t.asig===asigId);
-  const chooser=document.getElementById('tn-chooser');
-  let name='Assignment';
-  if(assignments.length===1) name=assignments[0].nombre;
-  else if(chooser){
-    const sel=assignments.find(t=>t.id===chooser.value);
-    if(sel)name=sel.nombre;
-  }
-  const conv=document.getElementById('tconv')?.value||'';
-  const fecha=document.getElementById('tfecha')?.value||'';
-  tareas.push({id:uid(),asig:asigId,nombre:name,fecha,tipo:'Assignment',estado:'Pending',nota:null,convocatoria:conv});
-  save();closeDrawer();renderAll();showToast('Assignment added');
-}
 
 function toggleSRCourse(id){
   const el=document.getElementById('srd_'+id);

@@ -66,8 +66,6 @@ input:focus,select:focus{border-color:#1D4ED8;box-shadow:0 0 0 3px rgba(29,78,21
 <script>
 const sb=supabase.createClient('https://scsbiqczkgeqclzkrhmm.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc2JpcWN6a2dlcWNsemtyaG1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTAyMTksImV4cCI6MjA5NzEyNjIxOX0.J0D43k9q6kTgkPUv-a4c32jYjSuptw8mF05PCEm78a8');
 
-sb.auth.getSession().then(function(r){if(r.data.session)window.location.href='app.html';});
-
 const CAREER_MAP = {
   windesheim: [{value:'ib', label:'International Business'}],
   us: [{value:'fico', label:'Finanzas y Contabilidad (FICO)'}],
@@ -79,6 +77,24 @@ const APP_MAP = {
   'us-fico': 'fico.html',
   'lasalle-mbt': 'lasalle.html'
 };
+
+// Single source of truth for "which dashboard does this user belong to".
+// Priority: auth user_metadata (durable, set at signup, survives email
+// confirmation delays and works across devices) > locally stored profile
+// (set after first dashboard load) > mc_pending_* (same-browser signup
+// just now) > Windesheim/IB default (only hit for accounts created before
+// this fix, which had no record of uni/career at all).
+function resolveAppUrl(user){
+  const meta=user.user_metadata||{};
+  const prof=JSON.parse(localStorage.getItem('mc_profile_'+user.id)||'{}');
+  const uni=meta.uni||prof.uni||localStorage.getItem('mc_pending_uni')||'windesheim';
+  const career=meta.career||prof.career||localStorage.getItem('mc_pending_career')||'ib';
+  return APP_MAP[uni+'-'+career]||'app.html';
+}
+
+sb.auth.getSession().then(function(r){
+  if(r.data.session) window.location.href=resolveAppUrl(r.data.session.user);
+});
 
 function updateCareers(){
   const uni = document.getElementById('su-uni').value;
@@ -103,12 +119,7 @@ async function doSignIn(){
     if(msg.includes('Invalid login'))msg='Incorrect email or password.';
     err.textContent=msg;btn.disabled=false;btn.textContent='Sign in';
   } else {
-    const userId=r.data.session.user.id;
-    const profKey='mc_profile_'+userId;
-    const prof=JSON.parse(localStorage.getItem(profKey)||'{}');
-    const career=prof.career||'ib';
-    const uni=prof.uni||'windesheim';
-    const appUrl=APP_MAP[uni+'-'+career]||'app.html';
+    const appUrl=resolveAppUrl(r.data.session.user);
     window.location.href=appUrl;
   }
 }
@@ -124,21 +135,26 @@ async function doSignUp(){
   if(!name||!email||!pass){err.textContent='Please fill in all fields';return;}
   if(pass.length<6){err.textContent='Password must be at least 6 characters';return;}
   btn.disabled=true;btn.textContent='...';err.textContent='';err.style.color='#F04438';
-  var r=await sb.auth.signUp({email:email,password:pass});
+  // Set these before the network call: if email confirmation is required,
+  // the user won't get a session yet, but these values must already be in
+  // place so the right dashboard/profile can be resolved once they do confirm.
+  localStorage.setItem('mc_pending_name',name);
+  localStorage.setItem('mc_pending_uni',uni);
+  localStorage.setItem('mc_pending_career',career);
+  var r=await sb.auth.signUp({
+    email:email,
+    password:pass,
+    options:{data:{full_name:name, uni:uni, career:career}}
+  });
   if(r.error){
     var msg=r.error.message;
     if(msg.includes('already registered'))msg='This email already has an account. Sign in.';
     err.textContent=msg;btn.disabled=false;btn.textContent='Create account';
+    localStorage.removeItem('mc_pending_name');
+    localStorage.removeItem('mc_pending_uni');
+    localStorage.removeItem('mc_pending_career');
   } else if(r.data.session){
-    localStorage.setItem('mc_pending_name',name);
-    localStorage.setItem('mc_pending_uni',uni);
-    localStorage.setItem('mc_pending_career',career);
-    const uni2=document.getElementById('su-uni').value;
-    const career2=document.getElementById('su-career').value;
-    const appUrl=APP_MAP[uni2+'-'+career2]||'app.html';
-    localStorage.setItem('mc_pending_name',name);
-    localStorage.setItem('mc_pending_uni',uni2);
-    localStorage.setItem('mc_pending_career',career2);
+    const appUrl=APP_MAP[uni+'-'+career]||'app.html';
     window.location.href=appUrl;
   } else {
     err.style.color='#12B76A';err.textContent='Check your email to confirm your account.';
