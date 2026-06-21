@@ -595,7 +595,7 @@ textarea{resize:vertical;min-height:56px}
   <a class="nav" href="https://outlook.cloud.microsoft/mail/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><span class="tip">Outlook</span><span class="nav-label">Outlook</span></a>
   <a class="nav" href="https://windesheim.aattendance.nl/student/app/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="tip">Enrollment</span><span class="nav-label">Enrollment</span></a>
   <a class="nav" href="https://leren.windesheim.nl" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span class="tip">Brightspace</span><span class="nav-label">Brightspace</span></a>
-  <div class="sb-bot"><div class="avatar" id="main-avatar" onclick="toggleProfile(event)" style="cursor:pointer" title="My profile">VC</div></div>
+  <div class="sb-bot"><div class="avatar" id="main-avatar" onclick="toggleProfile(event)" style="cursor:pointer" title="My profile">·</div></div>
 </aside>
 </div>
 
@@ -721,7 +721,7 @@ textarea{resize:vertical;min-height:56px}
 <!-- PROFILE PANEL -->
 <div class="profile-panel" id="profile-panel">
   <div class="profile-head">
-    <div class="profile-avatar" id="pp-avatar">VC</div>
+    <div class="profile-avatar" id="pp-avatar">·</div>
     <div style="min-width:0">
       <div class="profile-name-head" id="pp-name-head">Victor</div>
       <div class="profile-email" id="pp-email-head"></div>
@@ -824,29 +824,29 @@ const TAREAS_DEFAULT=[
 
 const EXAMENES_DEFAULT=[
   // ICM1 + Dutch (a11)
-  {id:'e1', asig:'a11',nombre:'Dutch 1.1',    fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
-  {id:'e2', asig:'a11',nombre:'Dutch oral',   fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
-  {id:'e3', asig:'a11',nombre:'Dutch 1.2',    fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e1', asig:'a11',nombre:'Dutch 1.1',    fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e2', asig:'a11',nombre:'Dutch oral',   fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e3', asig:'a11',nombre:'Dutch 1.2',    fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // Introduction to IB (a5)
-  {id:'e5', asig:'a5', nombre:'Written exam', fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e5', asig:'a5', nombre:'Written exam', fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // Logistics (a8)
-  {id:'e6', asig:'a8', nombre:'Assessment',   fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e6', asig:'a8', nombre:'Assessment',   fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // ICM2 + Dutch (a1)
-  {id:'e7', asig:'a1', nombre:'Dutch 2.1',    fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
-  {id:'e8', asig:'a1', nombre:'Dutch 2.2',    fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
-  {id:'e9', asig:'a1', nombre:'Dutch oral',   fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e7', asig:'a1', nombre:'Dutch 2.1',    fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e8', asig:'a1', nombre:'Dutch 2.2',    fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e9', asig:'a1', nombre:'Dutch oral',   fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // HRM (a2)
-  {id:'e10',asig:'a2', nombre:'Written exam', fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e10',asig:'a2', nombre:'Written exam', fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // Economics (a4)
-  {id:'e11',asig:'a4', nombre:'Written exam', fecha:'',hora:'',aula:'',estado:'Not enrolled',grade:null,convocatoria:''},
+  {id:'e11',asig:'a4', nombre:'Written exam', fecha:'',hora:'',estado:'Not enrolled',grade:null,convocatoria:''},
   // Year 2 Exams
-  {id:'b1e',asig:'b1',nombre:'Written exam',              fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b2e',asig:'b2',nombre:'Written exam',        fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b3e',asig:'b3',nombre:'Assessment',                       fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b4e',asig:'b4',nombre:'Written exam', fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b5e',asig:'b5',nombre:'Dutch exam',                           fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b6e',asig:'b6',nombre:'Assessment',                           fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
-  {id:'b7e',asig:'b7',nombre:'Dutch exam',                           fecha:'',hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b1e',asig:'b1',nombre:'Written exam',              fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b2e',asig:'b2',nombre:'Written exam',        fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b3e',asig:'b3',nombre:'Assessment',                       fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b4e',asig:'b4',nombre:'Written exam', fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b5e',asig:'b5',nombre:'Dutch exam',                           fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b6e',asig:'b6',nombre:'Assessment',                           fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
+  {id:'b7e',asig:'b7',nombre:'Dutch exam',                           fecha:'',hora:'',estado:'Not enrolled',nota:null,convocatoria:''},
 ];
 
 const STUDY_ROUTE=[
@@ -902,17 +902,12 @@ const SAVED_NAME_KEY='mc_saved_name';
 
 
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    if(document.getElementById('ls-step2').style.display!=='none') doLoginSaved();
-    else if(document.getElementById('ls-step3').style.display!=='none') doLogin();
-  }
-});
+// (dead login-step keydown listener removed — belonged to an old
+// index.html login flow that no longer exists; referenced ls-step2/
+// ls-step3 elements and doLoginSaved()/doLogin() functions that don't
+// exist anywhere in the codebase, throwing on every Enter keypress)
 
 
-
-
-// keydown handled by global keydown listener
 
 // Pulls the name chosen during sign-up into this user's profile.
 // Priority: localStorage mc_pending_name (same-browser, just signed up) >
@@ -941,7 +936,7 @@ function applyPendingOnboarding(){
     // user_metadata once so future logins (any device) resolve correctly.
     const meta2=currentUser.user_metadata||{};
     if(!meta2.uni||!meta2.career){
-      sbClient.auth.updateUser({data:{uni:'windesheim',career:'ib'}}).catch(()=>{});
+      sbClient.auth.updateUser({data:{uni:'windesheim',career:'ib'}}).catch(e=>console.error('updateUser failed:',e));
     }
   }catch(e){}
 }
@@ -990,7 +985,6 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 let asigs=ASIGS_DEFAULT.map(a=>({...a}));
 let tareas=TAREAS_DEFAULT.map(t=>({...t}));
 let examenes=EXAMENES_DEFAULT.map(e=>({...e}));
-let apuntes=[];
 // Sync status indicator
 function setSyncStatus(status){
   const el=document.getElementById('sync-status');
@@ -1010,7 +1004,7 @@ function save(){
     const payload={
       id:currentUser.id,
       user_id:currentUser.id,
-      tareas,examenes,asigs,apuntes,
+      tareas,examenes,asigs,
       profile:JSON.parse(localStorage.getItem('mc_profile_'+currentUser.id)||'{}'),
       updated_at:new Date().toISOString()
     };
@@ -1048,7 +1042,6 @@ async function loadFromSupabase(){
     if(data.asigs    &&data.asigs.length)    asigs=data.asigs;
     if(data.tareas   &&data.tareas.length)   tareas=data.tareas;
     if(data.examenes &&data.examenes.length) examenes=data.examenes;
-    if(data.apuntes  &&data.apuntes.length)  apuntes=data.apuntes;
     // Patch year onto asigs if missing (added after initial release)
     asigs.forEach(a=>{
       if(!a.year){
@@ -1086,7 +1079,6 @@ async function loadFromSupabase(){
     asigs    = ASIGS_DEFAULT.map(a=>({...a}));
     tareas   = TAREAS_DEFAULT.map(t=>({...t}));
     examenes = EXAMENES_DEFAULT.map(e=>({...e}));
-    apuntes  = [];
     renderAll();
     const _profKey2='mc_profile_'+currentUser.id;
     const _prof2=JSON.parse(localStorage.getItem(_profKey2)||'{}');
@@ -1095,7 +1087,7 @@ async function loadFromSupabase(){
       .insert({
         id:currentUser.id,
         user_id:currentUser.id,
-        asigs,tareas,examenes,apuntes,
+        asigs,tareas,examenes,
         profile:_prof2
       });
     if(saveErr) console.error('First save error:',saveErr);
@@ -1348,7 +1340,7 @@ function addExamenDrawer(){
   if(defaults.length>1&&chooser){const s=defaults.find(e=>e.id===chooser.value);if(s)nombre=s.nombre;}
   const conv=document.getElementById('dex-conv')?.value||'';
   const fecha=document.getElementById('dex-fecha')?.value||'';
-  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',aula:'',estado:'Not enrolled',nota:null,convocatoria:conv});
+  examenes.push({id:uid(),asig:asigId,nombre,fecha,hora:'',estado:'Not enrolled',nota:null,convocatoria:conv});
   save();closeDrawer();renderAll();showToast('Exam added');
 }
 
@@ -1965,7 +1957,7 @@ updateActivity();
     <span>Route</span>
   </button>
   <button class="mob-btn" onclick="toggleProfile(event)">
-    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700" id="mob-avatar">VC</div>
+    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700" id="mob-avatar">·</div>
     <span>Profile</span>
   </button>
 </nav>

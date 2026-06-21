@@ -863,17 +863,12 @@ const SAVED_NAME_KEY='mc_saved_name';
 
 
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    if(document.getElementById('ls-step2').style.display!=='none') doLoginSaved();
-    else if(document.getElementById('ls-step3').style.display!=='none') doLogin();
-  }
-});
+// (dead login-step keydown listener removed — belonged to an old
+// index.html login flow that no longer exists; referenced ls-step2/
+// ls-step3 elements and doLoginSaved()/doLogin() functions that don't
+// exist anywhere in the codebase, throwing on every Enter keypress)
 
 
-
-
-// keydown handled by global keydown listener
 
 // Pulls the name chosen during sign-up into this user's profile.
 // Priority: localStorage mc_pending_name (same-browser, just signed up) >
